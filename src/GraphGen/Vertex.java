@@ -3,12 +3,12 @@ package GraphGen;
 public class Vertex 
 {
     private double x;
-    private double y
+    private double y;
     
     public Vertex(double pX, double pY)
     {
         x = pX;
-        y = pY
+        y = pY;
     }
     
     //No need for setters, data should only be set on construction
@@ -39,7 +39,7 @@ public class Vertex
         
         final Vertex vert = (Vertex)obj; //won't be changed
         
-        if (vert.getX() != x || vert.getY != y)
+        if (vert.getX() != x || vert.getY() != y)
         {
             return false;
         }
@@ -47,4 +47,8 @@ public class Vertex
         return true;
     }
     
+    public String toString()
+    {
+        return "(" + x + ", " + y + ")";
+    }
 }

@@ -21,6 +21,10 @@ public class Edge
     {
         return v1;
     }
+    public double getDist()
+    {
+        return Math.sqrt(Math.pow((v1.getX() - v0.getX()), 2) + Math.pow((v1.getY() - v0.getY()), 2));
+    }
     
     @Override
     public boolean equals(Object obj)
@@ -45,9 +49,14 @@ public class Edge
         }
         if (!edge.getV1().equals(v1))
         {
-            return false
+            return false;
         }
         
         return true;
+    }
+    
+    public String toString()
+    {
+        return "Edge of length " + getDist() + " between " + v0 + " and " + v1;
     }
 }
