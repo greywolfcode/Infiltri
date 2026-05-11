@@ -1,32 +1,49 @@
 package GraphGen;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Graph 
 {
     private static double maxDist = 100.0;
     private static double minDist = 0.0;
     
-    private Triangle[] triangles;
+    private ArrayList<Point> points;
     
     public Graph(Triangle[] pTriangles)
     {
-        triangles = pTriangles;
-    }
-    public Triangle[] getTriangles()
-    {
-        return triangles;
-    }
-    public String toString()
-    {
-        String out = "Graph: ";
-        for (Triangle tri:triangles)
+        points = new HashSet<Point>();
+        
+        for (Tringle tri:triangles)
         {
-            out += tri.getV0() + "\n" + tri.getV1() + "\n" + tri.getV2();
+            for (Vertex v :tri.getVerticies())
+            {
+                Point p = new Point(v.getX(), v.getY());
+                
+                Point currentPoint;
+                if (points.add(p))
+                {
+                    currentPoint = p;
+                }
+                //value already exists in HashSet; find it.
+                else
+                {
+                    for (Point point:points)
+                    {
+                        if point.equals(p)
+                        {
+                            currentPoint = p
+                            break;
+                        }
+                    }
+                }
+                currentPoint.addNeighbors(tri.getVerticies());
+            }
         }
-        return out;
     }
-    
+    public HashSet<Points> getPoints()
+    {
+        return points;
+    }
     
     public static Graph gen(int numPoints, double minX, double maxX, double minY, double maxY)
     {
