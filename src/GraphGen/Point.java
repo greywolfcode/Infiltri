@@ -33,6 +33,11 @@ public class Point
     {
         return neighbors;
     }
+    public Point[] getNeighbors()
+    {
+        Point[] points = neighbors.toArray(new Point[0]);
+        return Arrays.sort(points);
+    }
     public int getX()
     {
         return x;
@@ -69,5 +74,26 @@ public class Point
     public int hashCode()
     {
         return Object.hash(x, y);
+    }
+    @Override
+    public int comapreTo(Point point)
+    {
+        if (point.getX() < x)
+        {
+            return -1;
+        }
+        if (point.getX() > x)
+        {
+            return 1;
+        }
+        if (point.getY() < y)
+        {
+            return -1;
+        }
+        if (point.getY() > y)
+        {
+            return 1;
+        }
+        return 0;
     }
 }
