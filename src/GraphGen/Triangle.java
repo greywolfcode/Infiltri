@@ -32,6 +32,10 @@ public class Triangle
     {
         return v2;
     }
+    public Vertex[] getVerticies()
+    {
+        return new Vertex[] {v0, v1, v2};
+    }
     
     public boolean isInTriangle(Vertex point)
     {

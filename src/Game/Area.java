@@ -2,6 +2,8 @@ package Game;
 
 import java.util.ArrayList;
 
+import GraphGen.Graph;
+
 /**
  * Class for storing details of a specific area
  */
@@ -9,6 +11,7 @@ public class Area
 {
     private int level;
     private ArrayList<Room> rooms;
+    private Graph graph;
     
     public Area(int areaLevel)
     {
@@ -18,6 +21,11 @@ public class Area
     public void generateArea()
     {
         rooms.add(new Room(new int[]{0, 0}));
+        graph = Graph.gen(20, 0, 100, 0, 100);
+    }
+    public void render()
+    {
+        
     }
     public String toString()
     {
@@ -26,6 +34,8 @@ public class Area
         {
             out += "  " + room.toString() + "\n";
         }
+        out += "points\n";
+        out += graph.toString();
         return out;
     }
 }

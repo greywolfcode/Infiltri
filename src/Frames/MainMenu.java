@@ -47,6 +47,10 @@ public class MainMenu extends Frame
                 {
                     return false;
                 }
+                else if (cursorPos == 0)
+                {
+                    Data.pushEvent({"switch", "AreaMenu"});
+                }
                 break;
             default:
                 options.setChar("\u25ba", 0, cursorPos, 128, 128, 128);
