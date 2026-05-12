@@ -94,14 +94,15 @@ public class Surface
      /**
       * Sets the value of a single charachter on the surface, including colour
       */
-     public void setChar(String str, int x, int y, int r, int g, int b)
+     public boolean setChar(String str, int x, int y, int r, int g, int b)
      {
          if (isOutOfBounds(x, y))
          {
-             return;
+             return false;
          }
          
          surface[y][x] = blend(surface[y][x], Colour.rgb(str.substring(0, 1), r, g, b));
+         return true;
      }
      /**
       * Writes text to the Surface
@@ -123,6 +124,76 @@ public class Surface
              setChar(str.substring(i, i+1), x+i, y, r, g, b);
          }
      }
+     /**
+      * Draws a coloured line to the surface
+      */
+    public void drawLine(int startX, int startY, int endX, int endY, int r, int g, int b)
+    {
+        //draw one line if start is the same as the end
+        if (startX == endX && startY == endY)
+        {
+            setChar("|", startX, startY, r, g, b);
+            return;
+        }
+        
+        double slope;
+        if (startX == endX) //handle division by zero
+        {
+            if (startY > endY)
+            {
+                slope = Double.NEGATIVE_INFINITY;
+            }
+            else
+            {
+                slope = Double.POSITIVE_INFINITY;
+            }
+        }
+        else
+        {
+            slope = (double)(endY - startY) / (endX - startX);
+        }
+        
+        double currentX = startX;
+        double currentY = startY;
+        
+        if (slope == Double.NEGATIVE_INFINITY)
+        {
+            while (starty != endY)
+            {
+                if (!setChar(currentX, currentY, r, g, b))
+                {
+                    //out of bounds
+                    break;
+                }
+                currentY -= 1;
+            }
+        }
+        else if (slope == Double.POSITIVE_INFINITY)
+        {
+            while (startY != endY)
+            {
+                if (!setChar(currentX, currentY, r, g, b))
+                {
+                    //out of bounds
+                    break;
+                }
+                currentY += 1;
+            }
+        }
+        else
+        {
+            while (startY != endY && startX != endY)
+            {
+                if (!setChar(Math.floor(startX), Math.floor(startY), r, g, b))
+                {
+                    //out of bounds
+                    break;
+                }
+            }
+            currentX += 1;
+            currentY += slope * 1;
+        }
+    }
     /**
      * Draws the surface to the screen
      */
