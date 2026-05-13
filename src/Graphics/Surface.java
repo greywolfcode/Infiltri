@@ -80,16 +80,17 @@ public class Surface
     /**
      * Sets the value of a single charachter on the surface
      */
-     public void setChar(String str, int x, int y)
+     public boolean setChar(String str, int x, int y)
      {
          //catch out of bounds
          if (isOutOfBounds(x, y))
          {
-             return;
+             return false;
          }
          
          //only allow one charachter
          surface[y][x] = blend(surface[y][x], str.substring(0, 1));
+         return true;
      }
      /**
       * Sets the value of a single charachter on the surface, including colour
@@ -136,6 +137,9 @@ public class Surface
             return;
         }
         
+        double currentX = startX;
+        double currentY = startY;
+        
         double slope;
         if (startX == endX) //handle division by zero
         {
@@ -153,14 +157,11 @@ public class Surface
             slope = (double)(endY - startY) / (endX - startX);
         }
         
-        double currentX = startX;
-        double currentY = startY;
-        
         if (slope == Double.NEGATIVE_INFINITY)
         {
-            while (starty != endY)
+            while ((int)currentY != endY)
             {
-                if (!setChar(currentX, currentY, r, g, b))
+                if (!setChar("|", (int)currentX, (int)currentY, r, g, b))
                 {
                     //out of bounds
                     break;
@@ -170,9 +171,9 @@ public class Surface
         }
         else if (slope == Double.POSITIVE_INFINITY)
         {
-            while (startY != endY)
+            while ((int)currentY != endY)
             {
-                if (!setChar(currentX, currentY, r, g, b))
+                if (!setChar("|", (int)currentX, (int)currentY, r, g, b))
                 {
                     //out of bounds
                     break;
@@ -182,16 +183,56 @@ public class Surface
         }
         else
         {
-            while (startY != endY && startX != endY)
+            //get rise and run of unit vector
+            double root = Math.sqrt(1 + Math.pow(slope, 2));
+            double rise = slope / root;
+            double run = 1 / root;
+            
+            //variables to translate by
+            double xTrans = run;
+            double yTrans = rise;
+            
+            //convert translation for proper directions
+            if (startY < endY)
             {
-                if (!setChar(Math.floor(startX), Math.floor(startY), r, g, b))
+                if (yTrans < 0)
+                {
+                    yTrans *= -1;
+                }
+            }
+            else
+            {
+                if (yTrans > 0)
+                {
+                    yTrans *= -1;
+                }
+            }
+            if (startX < endX)
+            {
+                if (xTrans > 0)
+                {
+                    xTrans *= -1;
+                }
+            }
+            else
+            {
+                if (xTrans < 0)
+                {
+                    xTrans *= -1;
+                }
+            }
+            
+            while (((int)currentY != endY) && ((int)currentX != endX))
+            {
+                //casting to get values as a whole number
+                if (!setChar("-", (int)currentX, (int)currentY, r, g, b))
                 {
                     //out of bounds
                     break;
                 }
+                currentX -= xTrans;
+                currentY += yTrans;
             }
-            currentX += 1;
-            currentY += slope * 1;
         }
     }
     /**
