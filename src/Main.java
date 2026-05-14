@@ -14,19 +14,21 @@ public class Main
 {
     private static Frame currentFrame;
     
+    private static Surface window;
+    
     public static void main(String[] args) 
     {
         Scanner in = new Scanner(System.in);
         
         
-        Surface window = new Surface(64, 32);
+        window = new Surface(64, 32);
         window.fill(0, 0, 0);
         Data.setWindow(window);
         
         Game.Data.genAreas();
         
         currentFrame = new MainMenu();
-        currentFrame.eventHandeler("");
+        currentFrame.eventHandeler("null"); //don't want to run a command
         
         window.update();
         
@@ -36,6 +38,12 @@ public class Main
             //reset window
             window.fill(0, 0, 0);
             
+            //process events
+            while (Game.Data.hasEvent())
+            {
+                parseEvent(Data.getEvent());
+            }
+            
             //handle input
             input = in.nextLine();
             
@@ -44,16 +52,15 @@ public class Main
                 break;
             }
             
-            while (Game.Data.hasEvent())
-            {
-                parseEvent(Data.getEvent())
-            }
-            
-            Screen.clear();
-            window.update();
+            render();
         }
     }
-    private void parseEvent(String[] event)
+    private static void render()
+    {
+        Screen.clear();
+        window.update();
+    }
+    private static void parseEvent(String[] event)
     {
         switch (event[0])
         {
@@ -62,7 +69,7 @@ public class Main
                 break;
         }
     }
-    private void switchFrame(String newFrame)
+    private static void switchFrame(String newFrame)
     {
         switch (newFrame)
         {
@@ -72,7 +79,12 @@ public class Main
             case "AreaMenu":
                 currentFrame = new AreaMenu();
                 break;
-                
         }
+        
+        //write new frame to the screen
+        currentFrame.eventHandeler("null"); //don't want to run a command
+        render();
+        
+        
     }
 }
