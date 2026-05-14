@@ -1,25 +1,35 @@
 package GraphGen;
 
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Graph 
+public class Graph
 {
     private static double maxDist = 100.0;
     private static double minDist = 0.0;
     
-    private ArrayList<Point> points;
+    private HashSet<Point> points;
+    private HashSet<Edge> edges;
     
-    public Graph(Triangle[] pTriangles)
+    public Graph(Triangle[] triangles)
     {
         points = new HashSet<Point>();
+        edges = new HashSet<Edge>();
         
-        for (Tringle tri:triangles)
+        for (Triangle tri:triangles)
         {
+            edges.add(new Edge(tri.getV0(), tri.getV1()));
+            edges.add(new Edge(tri.getV1(), tri.getV2()));
+            edges.add(new Edge(tri.getV2(), tri.getV0()));
+            
             for (Vertex v :tri.getVerticies())
             {
-                Point p = new Point(v.getX(), v.getY());
+
+                //want points to be at nearest int
+                Point p = new Point((int)v.getX(), (int)v.getY());
                 
-                Point currentPoint;
+                Point currentPoint = new Point(-1, -1);
                 if (points.add(p))
                 {
                     currentPoint = p;
@@ -29,9 +39,9 @@ public class Graph
                 {
                     for (Point point:points)
                     {
-                        if point.equals(p)
+                        if (point.equals(p))
                         {
-                            currentPoint = p
+                            currentPoint = point;
                             break;
                         }
                     }
@@ -40,11 +50,20 @@ public class Graph
             }
         }
     }
-    public HashSet<Points> getPoints()
+    public HashSet<Point> getPoints()
     {
         return points;
     }
-    
+    public Point[] getSortedPoints()
+    {
+        Point[] pointArr = points.toArray(new Point[0]);
+        Arrays.sort(pointArr);
+        return pointArr;
+    }
+    public HashSet<Edge> getEdges()
+    {
+        return edges;
+    }
     public static Graph gen(int numPoints, double minX, double maxX, double minY, double maxY)
     {
         Triangle superTri = genSuperTri(minX, maxX, minY, maxY);
