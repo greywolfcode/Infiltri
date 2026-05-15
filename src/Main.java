@@ -3,10 +3,12 @@ import java.util.Scanner;
 import ConsoleControl.Screen;
 
 import Frames.Frame;
-import Frames.MainMenu;
 import Frames.AreaMenu;
+import Frames.MainMenu;
+import Frames.WorldMenu;
 
 import Game.Data;
+import Game.SpriteHandeler;
 
 import Graphics.Surface;
 
@@ -18,8 +20,9 @@ public class Main
     
     public static void main(String[] args) 
     {
-        Scanner in = new Scanner(System.in);
+        SpriteHandeler.init();
         
+        Scanner in = new Scanner(System.in);
         
         window = new Surface(64, 32);
         window.fill(0, 0, 0);
@@ -54,6 +57,8 @@ public class Main
             
             render();
         }
+        
+        in.close();
     }
     private static void render()
     {
@@ -73,11 +78,14 @@ public class Main
     {
         switch (newFrame)
         {
+            case "AreaMenu":
+                currentFrame = new AreaMenu();
+                break;
             case "MainMenu":
                 currentFrame = new MainMenu();
                 break;
-            case "AreaMenu":
-                currentFrame = new AreaMenu();
+            case "WorldMenu":
+                currentFrame = new WorldMenu();
                 break;
         }
         
