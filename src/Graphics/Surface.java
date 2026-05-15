@@ -235,6 +235,53 @@ public class Surface
             }
         }
     }
+    public void drawCircle(int centreX, int centreY, int radius, int r, int g, int b)
+    {
+        if (radius == 0)
+        {
+            setChar("|", centreX, centreY, r, g, b);
+        }
+        
+        int x = radius;
+        int y = 0;
+        int P = 1 - radius;
+        //Midpoint circle drawing algorithm
+        while (x > y)
+        {
+            y++;
+            
+            //inside or on perimeter
+            if (P <= 0)
+            {
+                P += 2 * y + 1;
+            }
+            //outside perimeter
+            else 
+            {
+                x--;
+                P += 2 * y - 2 * x + 1;
+            }
+            
+            if (x < y)
+            {
+                break;
+            }
+            
+            //draw all four reflected points
+            setChar("|", x + centreX, y + centreY, r, g, b);
+            setChar("|", -x + centreX, y + centreY, r, g, b);
+            setChar("|", -x + centreX, -y + centreY, r, g, b);
+            setChar("|", x + centreX, -y + centreY, r, g, b);
+            
+            if (x != y)
+            {
+                setChar("|", y + centreX, x + centreY, r, g, b);
+                setChar("|", -y + centreX, x + centreY, r, g ,b);
+                setChar("|", -y + centreX, -x + centreY, r, g, b);
+                setChar("|", y + centreX, -x + centreY, r, g, b);
+            }
+        }
+    }
     /**
      * Draws the surface to the screen
      */
