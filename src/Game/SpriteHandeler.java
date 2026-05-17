@@ -45,7 +45,7 @@ public class SpriteHandeler
     {
         for (File file:files)
         {
-            String name = file.getName().split(".")[0];
+            String name = file.getName().split("\\.")[0];
             Surface sprite = new Surface(loadFile(file));
             
             storage.put(name, sprite);
