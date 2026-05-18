@@ -6,6 +6,7 @@ import Frames.Frame;
 import Frames.AreaMenu;
 import Frames.MainMenu;
 import Frames.RoomMenu;
+import Frames.UnitSelectionMenu;
 import Frames.WorldMenu;
 
 import Game.Data;
@@ -88,6 +89,9 @@ public class Main
             case "RoomMenu":
                 currentFrame = new RoomMenu();
                 break;
+            case "UnitSelectionMenu":
+                currentFrame = new UnitSelectionMenu();
+                break;
             case "WorldMenu":
                 currentFrame = new WorldMenu();
                 break;
@@ -96,7 +100,5 @@ public class Main
         //write new frame to the screen
         currentFrame.eventHandeler("null"); //don't want to run a command
         render();
-        
-        
     }
 }
