@@ -5,6 +5,7 @@ import ConsoleControl.Screen;
 import Frames.Frame;
 import Frames.AreaMenu;
 import Frames.MainMenu;
+import Frames.RoomMenu;
 import Frames.WorldMenu;
 
 import Game.Data;
@@ -83,6 +84,9 @@ public class Main
                 break;
             case "MainMenu":
                 currentFrame = new MainMenu();
+                break;
+            case "RoomMenu":
+                currentFrame = new RoomMenu();
                 break;
             case "WorldMenu":
                 currentFrame = new WorldMenu();

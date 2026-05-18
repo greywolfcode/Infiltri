@@ -42,14 +42,14 @@ public class MainMenu extends Frame
                 break;
             case "quit":
                 return false;
-            case "ent":
+            case "":
                 if (cursorPos == 2)
                 {
                     return false;
                 }
                 else if (cursorPos == 0)
                 {
-                    Data.pushEvent({"switch", "AreaMenu"});
+                    Data.pushEvent(new String[]{"switch", "AreaMenu"});
                 }
                 break;
             default:

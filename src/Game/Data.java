@@ -7,17 +7,21 @@ import Graphics.Surface;
 public class Data 
 {
     private static Surface window;
-    private Stack<String[]> events = new Stack<>();
+    private static Stack<String[]> events = new Stack<>();
     
-    private Area[] levelOneAreas();
-    private Area[] levelTwoAreas();
+    private static Area[] levelOneAreas;
+    private static Area[] levelTwoAreas;
     
-    private int currentArea;
-    private int areaLevel;
+    private static int currentArea;
+    private static int areaLevel;
+    
+    private static Room currentRoom;
+    
+    private Data(){}
     
     public static void genAreas()
     {
-        currentArea = 1;
+        currentArea = 0;
         areaLevel = 1;
         
         levelOneAreas = new Area[8];
@@ -44,14 +48,46 @@ public class Data
         {
             return levelTwoAreas[areaNum];
         }
+        
+        //will eventually be final room
+        return new Area(3);
+    }
+    public static Area getCurrentArea()
+    {
+        return getArea(areaLevel, currentArea);
+    }
+    public static int getCurrentAreaNum()
+    {
+        return currentArea;
+    }
+    public static int getCurrentAreaLevel()
+    {
+        return areaLevel;
+    }
+    public static Room getCurrentRoom()
+    {
+        return currentRoom;
+    }
+    public static Surface getWindow()
+    {
+        return window;
     }
     public static void setWindow(Surface win)
     {
         window = win;
     }
-    public static Surface getWindow()
+    public static void setCurrentRoom(Room room)
     {
-        return window;
+        currentRoom = room;
+    }
+    public static void setCurrentAreaNum(int num)
+    {
+        currentArea = num;
+        getCurrentArea().load();
+    }
+    public static void setCurrentAreaLevel(int level)
+    {
+        areaLevel = level;
     }
     public static void pushEvent(String[] event)
     {
@@ -66,7 +102,7 @@ public class Data
         
         return events.pop();
     }
-    public boolean hasEvent()
+    public static boolean hasEvent()
     {
         return events.size() != 0;
     }

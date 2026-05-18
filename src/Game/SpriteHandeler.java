@@ -51,7 +51,7 @@ public class SpriteHandeler
     }
     public static Surface getUnits(String name)
     {
-        return units.get(name)
+        return units.get(name);
     }
     private static void loadSprites(File[] files, HashMap<String, Surface> storage)
     {

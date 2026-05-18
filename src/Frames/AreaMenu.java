@@ -20,11 +20,7 @@ public class AreaMenu extends Frame
                 Data.getCurrentArea().selectNext();
                 break;
             case "":
-                //select new point and handle exiting area
-                if (Data.getCurrentArea().select())
-                {
-                    Data.pushEvent(new String[]{"switch", "WorldMenu"});
-                }
+                Data.getCurrentArea().select();
                 break;
         }
         

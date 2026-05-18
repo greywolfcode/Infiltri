@@ -34,9 +34,19 @@ public class Area
     }
     public void generateArea()
     {
-        rooms.add(new Room(new int[]{0, 0}));
         graph = Graph.gen(10, 0, 64, 0, 32);
         genStartAndEnd();
+        for (Point point:graph.getPoints())
+        {
+            int[] coords = new int[]{point.getX(), point.getY()};
+            Room room = new Room(coords, level);
+            room.gen();
+            rooms.add(room);
+        }
+    }
+    public void load()
+    {
+        initArea();
     }
     
     public void selectNext()
@@ -71,6 +81,17 @@ public class Area
 
         selectedPoint = currentPoint.getNeighborsArr()[0];
         selectedPointIndex = 0;
+        
+        //switch to new menu
+        if (currentPoint.equals(endPoint))
+        {
+            Data.pushEvent(new String[]{"switch", "WorldMenu"});
+        }
+        else
+        {
+            Data.setCurrentRoom(rooms.get(currentPointIndex)); //this will always map each to point to the same room
+            Data.pushEvent(new String[]{"switch", "RoomMenu"});
+        }
     }
     
     public void render()
@@ -169,6 +190,10 @@ public class Area
         startPoint = start;
         endPoint = end;
         
+        initArea();
+    }
+    private void initArea()
+    {
         currentPoint = startPoint;
         currentPointIndex = startIndex;
         
