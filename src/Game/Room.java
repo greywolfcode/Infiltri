@@ -48,6 +48,10 @@ public class Room
     {
         return cleared;
     }
+    public Surface getBackground()
+    {
+        return background;
+    }
     public String toString()
     {
         String loc ="Room at: " + Arrays.toString(coords);

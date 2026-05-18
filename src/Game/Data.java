@@ -1,5 +1,6 @@
 package Game;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import Graphics.Surface;
@@ -17,7 +18,14 @@ public class Data
     
     private static Room currentRoom;
     
+    private static ArrayList<Unit> playerGroup = new ArrayList<>();
+    
     private Data(){}
+    
+    public static void addUnitToParty(Unit unit)
+    {
+        playerGroup.add(unit);
+    }
     
     public static void genAreas()
     {
