@@ -55,6 +55,17 @@ public class Edge
         return true;
     }
     
+    @Override
+    public int hashCode()
+    {
+        double hash = 17;
+        hash = hash * 31 + v0.getX();
+        hash = hash * 31 + v1.getX();
+        hash = hash * 31 + v0.getY();
+        hash = hash * 31 + v1.getY();
+        return (int)hash;
+    }
+    
     public String toString()
     {
         return "Edge of length " + getDist() + " between " + v0 + " and " + v1;

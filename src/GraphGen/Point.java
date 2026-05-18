@@ -1,18 +1,21 @@
 package GraphGen;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
-public class Point 
+public class Point implements Comparable<Point>
 {
     private int x;
     private int y;
     
     private HashSet<Point> neighbors;
     
-    public Point(int pX, pY)
+    public Point(int pX, int pY)
     {
         x = pX;
         y= pY;
+        neighbors = new HashSet<>();
     }
     public boolean addNeighbor(Point p)
     {
@@ -29,14 +32,22 @@ public class Point
             addNeighbor(p);   
         }
     }
+    public void addNeighbors(Vertex[] vs)
+    {
+        for (Vertex v:vs)
+        {
+            addNeighbor(new Point((int)v.getX(), (int)v.getY()));
+        }
+    }
     public HashSet<Point> getNeighbors()
     {
         return neighbors;
     }
-    public Point[] getNeighbors()
+    public Point[] getNeighborsArr()
     {
         Point[] points = neighbors.toArray(new Point[0]);
-        return Arrays.sort(points);
+        Arrays.sort(points);
+        return points;
     }
     public int getX()
     {
@@ -45,6 +56,10 @@ public class Point
     public int getY()
     {
         return y;
+    }
+    public String toString()
+    {
+        return "(" + x + ", " + y + ")";
     }
     
     @Override
@@ -73,10 +88,13 @@ public class Point
     @Override
     public int hashCode()
     {
-        return Object.hash(x, y);
+        int hash = 17;
+        hash = hash * 31 + x;
+        hash = hash * 31 + y;
+        return hash;
     }
     @Override
-    public int comapreTo(Point point)
+    public int compareTo(Point point)
     {
         if (point.getX() < x)
         {

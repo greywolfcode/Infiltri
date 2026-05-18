@@ -1,6 +1,6 @@
 package GraphGen;
 
-public class Vertex 
+public class Vertex
 {
     private double x;
     private double y;
