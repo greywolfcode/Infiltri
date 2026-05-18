@@ -41,6 +41,18 @@ public class SpriteHandeler
         
         loadSprites(unitsFiles, units);
     }
+    public static Surface getBackground(String name)
+    {
+        return backgrounds.get(name);
+    }
+    public static Surface getEnemies(String name)
+    {
+        return enemies.get(name);
+    }
+    public static Surface getUnits(String name)
+    {
+        return units.get(name)
+    }
     private static void loadSprites(File[] files, HashMap<String, Surface> storage)
     {
         for (File file:files)
