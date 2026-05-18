@@ -45,11 +45,11 @@ public class SpriteHandeler
     {
         return backgrounds.get(name);
     }
-    public static Surface getEnemies(String name)
+    public static Surface getEnemy(String name)
     {
         return enemies.get(name);
     }
-    public static Surface getUnits(String name)
+    public static Surface getUnit(String name)
     {
         return units.get(name);
     }
@@ -59,6 +59,7 @@ public class SpriteHandeler
         {
             String name = file.getName().split("\\.")[0];
             Surface sprite = new Surface(loadFile(file));
+            sprite.setCharColour(255, 255, 255);
             
             storage.put(name, sprite);
         }
