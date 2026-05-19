@@ -26,7 +26,10 @@ public class Data
     {
         playerGroup.add(unit);
     }
-    
+    public static ArrayList<Unit> getParty()
+    {
+        return playerGroup;
+    }
     public static void genAreas()
     {
         currentArea = 0;
