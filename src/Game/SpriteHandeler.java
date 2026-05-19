@@ -19,7 +19,7 @@ public class SpriteHandeler
     private static HashMap<String, Surface> backgrounds = new HashMap<>();
     private static HashMap<String, Surface> enemies = new HashMap<>();
     private static HashMap<String, Surface> units = new HashMap<>();
-    
+    private static HashMap<String, Surface> bosses = new HashMap<>();
     
     public static void init()
     {
@@ -34,6 +34,12 @@ public class SpriteHandeler
         File[] enemiesFiles = enemiesFolder.listFiles();
         
         loadSprites(enemiesFiles, enemies);
+        
+        Path bossPath = Paths.get("Sprites", "boss");
+        File bossFolder = enemiesPath.toFile();
+        File[] bossFiles = bossFolder.listFiles();
+        
+        loadSprites(bossFiles, bosses);
         
         Path unitsPath = Paths.get("Sprites", "units");
         File unitsFolder = unitsPath.toFile();
@@ -50,6 +56,10 @@ public class SpriteHandeler
         return enemies.get(name);
     }
     public static Surface getUnit(String name)
+    {
+        return units.get(name);
+    }
+    public static Surface getBoss(String name)
     {
         return units.get(name);
     }
