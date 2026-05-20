@@ -3,7 +3,7 @@ package Game.Bosses;
 import Game.Enemy;
 import Game.SpriteHandeler;
 
-public class RoboBoss 
+public class RoboBoss extends Enemy
 {
     public RoboBoss()
     {

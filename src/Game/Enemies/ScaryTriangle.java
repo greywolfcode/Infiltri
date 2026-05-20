@@ -3,7 +3,7 @@ package Game.Enemies;
 import Game.Enemy;
 import Game.SpriteHandeler;
 
-public class ScaryTriangle extends Enemy;
+public class ScaryTriangle extends Enemy
 {
     public ScaryTriangle(int lvl)
     {

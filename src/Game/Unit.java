@@ -8,9 +8,9 @@ public abstract class Unit
     protected int level;
     protected Surface sprite;
     
-    public void damage(double damageAmount)
+    public void damage(Damage damage)
     {
-        health -= damageAmount;
+        health -= damage.amount();
     }
     public Surface getSprite()
     {

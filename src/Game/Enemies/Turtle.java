@@ -1,4 +1,4 @@
-package Turtle;
+package Game.Enemies;
 
 import Game.Enemy;
 import Game.SpriteHandeler;

@@ -1,6 +1,7 @@
 package Game.Enemies;
 
-import Game.Enemy
+import Game.Damage;
+import Game.Enemy;
 import Game.SpriteHandeler;
 
 import Graphics.Surface;
@@ -25,9 +26,9 @@ public class Snail extends Enemy
     
     //needs to handle two stages
     @Override
-    public void damage(double damageAmount)
+    public void damage(Damage damage)
     {
-        health -= damageAmount;
+        health -= damage.amount();
         
         if (health <= 0 && stage == 1)
         {

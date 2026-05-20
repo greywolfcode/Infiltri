@@ -13,6 +13,7 @@ public class Room
     private int level;
     private int[] coords;
     private RoomType type;
+    private Enemy enemy;
     
     private Surface background;
     
@@ -39,6 +40,7 @@ public class Room
     public void gen()
     {
         type = RoomType.randType();
+        enemy = EnemyGenerator.getEnemy(level);
     }
     public void setCleared(boolean isCleared)
     {
@@ -51,6 +53,10 @@ public class Room
     public Surface getBackground()
     {
         return background;
+    }
+    public Enemy getEnemy()
+    {
+        return enemy;
     }
     public String toString()
     {

@@ -32,7 +32,7 @@ public enum RoomType
         
         for (RoomType type:vals)
         {
-            r += weights.get(type);
+            count += weights.get(type);
             if (count >= r)
             {
                 return type;
