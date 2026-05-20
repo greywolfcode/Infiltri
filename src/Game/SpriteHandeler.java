@@ -20,6 +20,7 @@ public class SpriteHandeler
     private static HashMap<String, Surface> enemies = new HashMap<>();
     private static HashMap<String, Surface> units = new HashMap<>();
     private static HashMap<String, Surface> bosses = new HashMap<>();
+    private static HashMap<String, Surface> ui = new HashMap<>();
     
     public static void init()
     {
@@ -46,6 +47,12 @@ public class SpriteHandeler
         File[] unitsFiles = unitsFolder.listFiles();
         
         loadSprites(unitsFiles, units);
+        
+        Path uiPath = Paths.get("Sprites", "UI");
+        File uiFolder = uiPath.toFile();
+        File[] uiFiles = uiFolder.listFiles();
+        
+        loadSprites(uiFiles, ui);
     }
     public static Surface getBackground(String name)
     {
@@ -62,6 +69,10 @@ public class SpriteHandeler
     public static Surface getBoss(String name)
     {
         return units.get(name);
+    }
+    public static Surface getUI(String name)
+    {
+        return ui.get(name);
     }
     private static void loadSprites(File[] files, HashMap<String, Surface> storage)
     {
