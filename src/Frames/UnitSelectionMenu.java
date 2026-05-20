@@ -65,6 +65,10 @@ public class UnitSelectionMenu extends Frame
         Data.getWindow().blit(ranger, wizard.getWidth() + 4, 32-ranger.getHeight()-1);
         Data.getWindow().blit(knight, 64-knight.getWidth()-1, 32-knight.getHeight()-1);
         
+        Data.getWindow().writeText("a: left", 1, 35, 255, 255, 255);
+        Data.getWindow().writeText("d: right", 1, 36, 255, 255, 255);
+        Data.getWindow().writeText("Enter: select", 1, 37, 255, 255, 255);
+        
         buttons.render(Data.getWindow(), 255, 255, 255);
     }
     private void initButtons()

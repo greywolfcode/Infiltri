@@ -71,6 +71,11 @@ public class MainMenu extends Frame
         window.blit(title, 4, 0);
         window.blit(options, 26, 14);
         
+        //render bottom bar
+        window.writeText("w: up", 1, 35, 255, 255, 255);
+        window.writeText("s: down", 1, 36, 255, 255, 255);
+        window.writeText("Enter: select", 1, 37, 255, 255, 255);
+        
     }
     private void initSurfaces()
     {

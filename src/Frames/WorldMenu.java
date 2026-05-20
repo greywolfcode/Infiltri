@@ -20,13 +20,13 @@ public class WorldMenu extends Frame
         {7, 7},
         {10, 0},
         {7, -7},
-        {0, -10},
+        {0, -10}
     };
     private int[][] levelTwoOffsets = {
         {0, 5},
         {5, 0},
         {0, -5},
-        {-5, 0},
+        {-5, 0}
     };
     
     public WorldMenu()
@@ -239,6 +239,26 @@ public class WorldMenu extends Frame
         
         //render selected position to move to
         renderPlayer(selectedLevel, selectedArea, 0, 127, 255);
+        
+        //draw bottom bar
+        Data.getWindow().writeText("w: move backwards", 1, 35, 255, 255, 255);
+        Data.getWindow().writeText("s: move forwards", 1, 36, 255, 255, 255);
+        Data.getWindow().writeText("Enter: select", 1, 37, 255, 255, 255);
+        
+        if (selectedLevel > currentLevel)
+        {
+            Data.getWindow().writeText("Warning: You cannot go back if you ascend.", 1, 38, 255, 16, 16);
+        }
+        
+        Data.getWindow().drawPoint(32, 35, 0, 255, 0);
+        Data.getWindow().writeText(": Level 1", 33, 35, 255, 255, 255);
+        
+        Data.getWindow().drawPoint(32, 36, 255, 165, 0);
+        Data.getWindow().writeText(": Level 2", 33, 36, 255, 255, 255);
+        
+        
+        Data.getWindow().drawPoint(32, 37, 255, 0, 0);
+        Data.getWindow().writeText(": Boss", 33, 37, 255, 255, 255);
     }
     private void renderPlayer(int level, int area, int r, int g, int b)
     {
@@ -254,6 +274,5 @@ public class WorldMenu extends Frame
         {
             Data.getWindow().drawPoint(32, 16, r, g, b);
         }
-        
     }
 }
