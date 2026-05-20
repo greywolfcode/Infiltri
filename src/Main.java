@@ -26,7 +26,7 @@ public class Main
         
         Scanner in = new Scanner(System.in);
         
-        window = new Surface(64, 32);
+        window = new Surface(64, 40);
         window.fill(0, 0, 0);
         Data.setWindow(window);
         
@@ -35,7 +35,7 @@ public class Main
         currentFrame = new MainMenu();
         currentFrame.eventHandeler("null"); //don't want to run a command
         
-        window.update();
+        render();
         
         String input;
         while (true)
@@ -65,6 +65,9 @@ public class Main
     private static void render()
     {
         Screen.clear();
+        //render bottom bar
+        window.blit(SpriteHandeler.getUI("action_bar"), 0, 32);
+        
         window.update();
     }
     private static void parseEvent(String[] event)
