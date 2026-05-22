@@ -1,7 +1,7 @@
 package Game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 
 import Game.Effects.Fire;
 import Game.Effects.Poisin;
@@ -12,7 +12,7 @@ public abstract class Effect
     public abstract void apply(Unit unit, int roundNum);
     public abstract void remove(Unit unit);
     
-    public static ArrayList<Effect> getEffect(ArrayList<AttackMod> modifiers, int level)
+    public static ArrayList<Effect> getEffect(HashSet<AttackMod> modifiers, int level)
     {
         ArrayList<Effect> effects = new ArrayList<>();
         

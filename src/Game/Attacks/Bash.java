@@ -8,6 +8,8 @@ import Game.AttackMod;
 import Game.Effect;
 import Game.Damage;
 
+import Game.Effects.Stunned;
+
 public class Bash extends Attack
 {
     private double baseDamage = 2.5;
@@ -27,7 +29,7 @@ public class Bash extends Attack
             double chance = Math.random();
             if (chance < baseStun * level)
             {
-                effects.add(Effect.getEffect(AttackMod.STUN));
+                effects.add(new Stunned());
             }
         }
         

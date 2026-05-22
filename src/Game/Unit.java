@@ -11,6 +11,7 @@ public abstract class Unit
     protected Surface sprite;
     protected boolean locked = false;
     protected HashSet<Effect> effects = new HashSet<>();
+    protected Attack[] attacks;
     
     public void damage(Damage damage)
     {

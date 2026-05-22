@@ -13,20 +13,20 @@ import Game.Effects.Fire;
 /**
  * Low damage, high fire attack
  */ 
-public class FireOrb extends Attack;
+public class FireOrb extends Attack
 {
     double baseDamage = 1;
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
-        ArrayList<Effect> effects = Effect.getEffects(modifiers, level);
+        ArrayList<Effect> effects = Effect.getEffect(modifiers, level);
         
         
-        if (!(modifers.contains(AttackMod.NO_FIRE)))
+        if (!(modifiers.contains(AttackMod.NO_FIRE)))
         {
             effects.add(new Fire(level * 2));
         }
         
-        return new Damage(effects, baseDamage);
+        return new Damage(baseDamage, effects);
     }
 }

@@ -1,23 +1,25 @@
 package Game.Attacks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 
 import Game.Attack;
-import game.AttackMod;
+import Game.AttackMod;
 import Game.Damage;
 import Game.Effect;
+
+import Game.Effects.Poisin;
 
 public class PoisinSpray extends Attack
 {
     private double baseDamage = 2.5;
     
-    public Damage attack(HashMap<AttackMod> modifiers, int level)
+    public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
-        ArrayList<Effect> effects = Effect.getEffects(modifiers, level);
+        ArrayList<Effect> effects = Effect.getEffect(modifiers, level);
         double damage = Attack.getDamage(baseDamage, modifiers);
         
-        if (!(modifier.contains(AttackMod.NO_POISIN)))
+        if (!(modifiers.contains(AttackMod.NO_POISIN)))
         {
             effects.add(new Poisin(level));
             

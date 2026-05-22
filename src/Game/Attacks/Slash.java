@@ -6,7 +6,7 @@ import java.util.HashSet;
 import Game.Attack;
 import Game.AttackMod;
 import Game.Damage;
-import Game.Effects;
+import Game.Effect;
 
 public class Slash extends Attack
 {
@@ -14,7 +14,7 @@ public class Slash extends Attack
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
-        ArrayList<Effect> effects = Effect.getEffect(modifers, level);
+        ArrayList<Effect> effects = Effect.getEffect(modifiers, level);
         
         double damage = Attack.getDamage(baseDamage, modifiers);
         

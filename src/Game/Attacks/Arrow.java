@@ -14,7 +14,7 @@ public class Arrow extends Attack
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
-        Arraylist<Effect> effects = Effect.getEffects(modifiers, level);
+        ArrayList<Effect> effects = Effect.getEffect(modifiers, level);
         
         double damage = Attack.getDamage(baseDamage, modifiers);
         
