@@ -5,23 +5,19 @@ import java.util.HashSet;
 
 import Game.Attack;
 import Game.AttackMod;
+import Game.Effect;
 import Game.Damage;
-import Game.Effects;
 
-public class Slash extends Attack
+public class Arrow extends Attack
 {
-    double baseDamage = 7;
+    private double baseDamage = 1;
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
-        ArrayList<Effect> effects = Effect.getEffect(modifers, level);
+        Arraylist<Effect> effects = Effect.getEffects(modifiers, level);
         
         double damage = Attack.getDamage(baseDamage, modifiers);
         
-        return new Damage(damage, effects);
-    }
-    public String toString()
-    {
-        return "slash";
+        return new Damage(baseDamage * level * 1.5, effects);
     }
 }

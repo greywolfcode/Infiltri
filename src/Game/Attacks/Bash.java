@@ -10,8 +10,8 @@ import Game.Damage;
 
 public class Bash extends Attack
 {
-    double baseDamage = 2.5;
-    double baseStun = 0.25;
+    private double baseDamage = 2.5;
+    private double baseStun = 0.25;
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
