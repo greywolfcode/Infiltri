@@ -30,11 +30,30 @@ public class Snail extends Enemy
     {
         health -= damage.amount();
         
+        if (doStageChange())
+        {
+            
+        }
+        
+    }
+    @Override public void damage(double amount)
+    {
+        health -= amount;
+        
+        if (doStageChange())
+        {
+            
+        }
+    }
+    private boolean doStageChange()
+    {
         if (health <= 0 && stage == 1)
         {
             stage ++;
             health = 25.0;
             sprite = sprite2;
+            return true;
         }
+        return false;
     }
 }
