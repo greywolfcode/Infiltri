@@ -10,14 +10,20 @@ import Game.Unit;
 public class RoomMenu extends Frame
 {
     private Room room;
+    int roundNum;
     
     public RoomMenu()
     {
         room = Data.getCurrentRoom();
+        roundNum = 0;
     }
     public boolean eventHandeler(String event) 
     {
+        Data.getParty().get(0).applyEffects(roundNum);
+        room.getEnemy().applyEffects(roundNum);
+        
         render();
+        roundNum++;
         return true;
     }
     private void render()
