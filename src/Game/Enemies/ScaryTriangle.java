@@ -8,7 +8,7 @@ public class ScaryTriangle extends Enemy
     public ScaryTriangle(int lvl)
     {
         health = 50.0;
-        level= lvl;
+        level = lvl;
         sprite = SpriteHandeler.getEnemy("scary_triangle");
     }
 }
