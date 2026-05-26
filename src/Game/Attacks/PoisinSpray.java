@@ -32,4 +32,8 @@ public class PoisinSpray extends Attack
         
         return new Damage(damage, effects);
     }
+    public String toString()
+    {
+        return "Poisin Spray";
+    }
 }

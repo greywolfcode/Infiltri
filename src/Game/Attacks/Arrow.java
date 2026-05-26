@@ -20,4 +20,8 @@ public class Arrow extends Attack
         
         return new Damage(baseDamage * level * 1.5, effects);
     }
+    public String toString()
+    {
+        return "Arrow";
+    }
 }

@@ -29,4 +29,8 @@ public class FireOrb extends Attack
         
         return new Damage(baseDamage, effects);
     }
+    public String toString()
+    {
+        return "Fire Orb";
+    }
 }

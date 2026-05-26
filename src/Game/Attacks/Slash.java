@@ -22,6 +22,6 @@ public class Slash extends Attack
     }
     public String toString()
     {
-        return "slash";
+        return "Slash";
     }
 }
