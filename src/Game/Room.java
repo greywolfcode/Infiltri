@@ -41,6 +41,7 @@ public class Room
     {
         type = RoomType.randType();
         enemy = EnemyGenerator.getEnemy(level);
+        enemy.init();
     }
     public void setCleared(boolean isCleared)
     {

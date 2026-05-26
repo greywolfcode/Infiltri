@@ -2,6 +2,7 @@ package Frames;
 
 import Game.Data;
 import Game.SpriteHandeler;
+import Game.Unit;
 
 import Game.Units.Knight;
 import Game.Units.Ranger;
@@ -42,6 +43,11 @@ public class UnitSelectionMenu extends Frame
                 else if (buttons.getSelectedButton() == 2)
                 {
                     Data.addUnitToParty(new Knight());   
+                }
+                
+                for (Unit unit:Data.getParty())
+                {
+                    unit.init();
                 }
                 
                 //no matter which you select, move to actual game
