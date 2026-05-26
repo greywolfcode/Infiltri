@@ -4,6 +4,7 @@ import ConsoleControl.Screen;
 
 import Frames.Frame;
 import Frames.AreaMenu;
+import Frames.LoseMenu;
 import Frames.MainMenu;
 import Frames.RoomMenu;
 import Frames.UnitSelectionMenu;
@@ -85,6 +86,9 @@ public class Main
         {
             case "AreaMenu":
                 currentFrame = new AreaMenu();
+                break;
+            case "LoseMenu":
+                currentFrame = new LoseMenu();
                 break;
             case "MainMenu":
                 currentFrame = new MainMenu();
