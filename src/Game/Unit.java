@@ -7,12 +7,42 @@ import Graphics.Surface;
 public abstract class Unit 
 {
     protected double health;
+    protected double maxHealth;
     protected int level;
     protected Surface sprite;
     protected boolean locked = false;
     protected HashSet<Effect> effects = new HashSet<>();
     protected Attack[] attacks;
+    protected HashSet<AttackMod> mods = new HashSet<>();
     
+    
+    public void init()
+    {
+        maxHealth = health;
+    }
+    public void regen()
+    {
+        if (health + 2 < maxHealth)
+        {
+            health += 2;
+        }
+        else 
+        {
+            health += maxHealth - health;
+        }
+    }
+    public double getMaxHealth()
+    {
+        return maxHealth;
+    }
+    public String getHealthPercent()
+    {
+        return (int)(health / maxHealth * 100) + "%";
+    }
+    public double getHealth()
+    {
+        return health;
+    }
     public void damage(Damage damage)
     {
         health -= damage.amount();
@@ -39,6 +69,19 @@ public abstract class Unit
         {
             effect.apply(this, roundNum);
         }
+    }
+    public Attack[] getAttacks()
+    {
+        return attacks;
+    }
+    public Damage getDamage(int index)
+    {
+        return attacks[0].attack(mods, level);
+    }
+    public Damage getRandDamage()
+    {
+        int index = (int)(Math.random() * attacks.length);
+        return getDamage(index);
     }
     
     /**
