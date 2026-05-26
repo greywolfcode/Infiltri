@@ -108,8 +108,9 @@ public class Area
         }
         
         Point[] points = graph.getSortedPoints();
-        for (Point point:points)
+        for (int i = 0; i < points.length; i++)
         {
+            Point point = points[i];
             //draw important points different colours
             if (point.equals(currentPoint))
             {
@@ -126,6 +127,10 @@ public class Area
             else if (point.equals(endPoint))
             {
                 Data.getWindow().drawPoint(point.getX(), point.getY(), 64, 0, 0);
+            }
+            else if (rooms.get(i).getCleared())
+            {
+                Data.getWindow().drawPoint(point.getX(), point.getY(), 64, 64, 64);
             }
             else
             {

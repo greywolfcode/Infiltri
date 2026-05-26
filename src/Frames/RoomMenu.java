@@ -34,6 +34,12 @@ public class RoomMenu extends Frame
     }
     public boolean eventHandeler(String event) 
     {
+        if (room.getCleared())
+        {
+            cleared(event);
+            return true;
+        }
+        
         Unit player = Data.getParty().get(0);
         Unit enemy = room.getEnemy();
         
@@ -89,9 +95,31 @@ public class RoomMenu extends Frame
         roundNum++;
         return true;
     }
+    private void cleared(String event)
+    {
+        switch (event)
+        {
+            case "":
+                Data.pushEvent(new String[]{"switch", "AreaMenu"});
+                break;
+        }
+        
+        //blit player sprite         
+        ArrayList<Unit> units = Data.getParty();         
+        Unit main = units.get(0);         
+        Data.getWindow().blit(main.getSprite(), 5, 32-main.getSprite().getHeight());
+        
+        //draw selection text
+        Data.getWindow().writeText("No one is here...", 34, 16, 255, 255, 255);
+        Data.getWindow().writeText("\u25ba Continue", 36, 18, 255, 255, 255);
+        
+        //draw action bar
+        Data.getWindow().writeText("Enter: select", 1, 35, 255, 255, 255);
+    }
     private void win()
     {
         Data.getParty().get(0).regen();
+        room.setCleared(true);
         Data.pushEvent(new String[]{"switch", "WonMenu"});
     }
     private void lose()
