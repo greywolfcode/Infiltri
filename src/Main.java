@@ -8,6 +8,7 @@ import Frames.LoseMenu;
 import Frames.MainMenu;
 import Frames.RoomMenu;
 import Frames.UnitSelectionMenu;
+import Frames.WonMenu;
 import Frames.WorldMenu;
 
 import Game.Data;
@@ -98,6 +99,9 @@ public class Main
                 break;
             case "UnitSelectionMenu":
                 currentFrame = new UnitSelectionMenu();
+                break;
+            case "WonMenu":
+                currentFrame = new WonMenu();
                 break;
             case "WorldMenu":
                 currentFrame = new WorldMenu();

@@ -31,6 +31,10 @@ public abstract class Unit
             health += maxHealth - health;
         }
     }
+    public void levelUp()
+    {
+        level++;
+    }
     public double getMaxHealth()
     {
         return maxHealth;

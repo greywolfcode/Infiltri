@@ -75,10 +75,10 @@ public class RoomMenu extends Frame
                     break;
                 }
                 
-                //regen every other turn
+                player.regen();
+                //regen enemy every other turn
                 if (roundNum % 2 == 0)
                 {
-                    player.regen();
                     enemy.regen();
                 }
                 
@@ -92,6 +92,7 @@ public class RoomMenu extends Frame
     private void win()
     {
         Data.getParty().get(0).regen();
+        Data.pushEvent(new String[]{"switch", "WonMenu"});
     }
     private void lose()
     {
