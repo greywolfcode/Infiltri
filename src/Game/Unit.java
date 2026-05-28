@@ -22,6 +22,11 @@ public abstract class Unit
     }
     public void regen()
     {
+        if (health >= maxHealth)
+        {
+            return;
+        }
+        
         if (health + 2 < maxHealth)
         {
             health += 2;
@@ -31,9 +36,17 @@ public abstract class Unit
             health += maxHealth - health;
         }
     }
+    public void maxRegen()
+    {
+        health = maxHealth;
+    }
     public void levelUp()
     {
         level++;
+        
+        maxHealth *= 2;
+        
+        maxRegen();
     }
     public double getMaxHealth()
     {
