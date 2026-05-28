@@ -1,8 +1,10 @@
 package SmallJson;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-public class JsonBuilder 
+public class JsonBuilder implements Iterable<Map.entry<String, Node>>
 {
     HashMap<String, Node> values;
     
@@ -42,5 +44,11 @@ public class JsonBuilder
     {
         values.add(key, new Node(obj));
         return obj;
+    }
+    
+    @Override
+    public Iterator<Map.entry<String, Node>> iterator()
+    {
+        return values.entrySet().iterator();
     }
 }
