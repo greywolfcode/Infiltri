@@ -43,6 +43,10 @@ public class Room
         enemy = EnemyGenerator.getEnemy(level);
         enemy.init();
     }
+    public int getLevel()
+    {
+        return level;   
+    }
     public void setCleared(boolean isCleared)
     {
         cleared = isCleared;

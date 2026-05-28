@@ -60,6 +60,8 @@ public class RoomMenu extends Frame
             case "unavoidableDefeat":
                 lose();
                 break;
+            case "hurryUpAndWinAlready":
+                Data.pushEvent(new String[]{"switch", "GameWonMenu"});
             case "":
                 int selected = attackOptions.getSelectedButton();
                 Damage playerMove = player.getDamage(selected);
@@ -81,10 +83,10 @@ public class RoomMenu extends Frame
                     break;
                 }
                 
-                player.regen();
                 //regen enemy every other turn
                 if (roundNum % 2 == 0)
                 {
+                    player.regen();
                     enemy.regen();
                 }
                 
@@ -118,6 +120,13 @@ public class RoomMenu extends Frame
     }
     private void win()
     {
+        //handle boss
+        if (room.getLevel() == 3)
+        {
+            Data.pushEvent(new String[]{"switch", "GameWonMenu"});
+            return;
+        }
+        
         Data.getParty().get(0).regen();
         room.setCleared(true);
         Data.pushEvent(new String[]{"switch", "WonMenu"});

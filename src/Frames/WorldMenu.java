@@ -56,6 +56,13 @@ public class WorldMenu extends Frame
         switch (event)
         {
             case "":
+                if (selectedLevel == 3)
+                {
+                    Data.setBoss();
+                    Data.pushEvent(new String[]{"switch", "RoomMenu"});
+                    return true;
+                }
+                
                 Data.setCurrentAreaLevel(selectedLevel);
                 Data.setCurrentAreaNum(selectedArea);
                 Data.pushEvent(new String[]{"switch", "AreaMenu"});
