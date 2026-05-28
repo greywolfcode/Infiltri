@@ -3,7 +3,9 @@ import java.util.Scanner;
 import ConsoleControl.Screen;
 
 import Frames.Frame;
+
 import Frames.AreaMenu;
+import Frames.GameWonMenu;
 import Frames.LoseMenu;
 import Frames.MainMenu;
 import Frames.RoomMenu;
@@ -87,6 +89,9 @@ public class Main
         {
             case "AreaMenu":
                 currentFrame = new AreaMenu();
+                break;
+            case "GameWonMenu":
+                currentFrame = new GameWonMenu();
                 break;
             case "LoseMenu":
                 currentFrame = new LoseMenu();
