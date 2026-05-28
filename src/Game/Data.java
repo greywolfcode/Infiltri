@@ -17,6 +17,7 @@ public class Data
     private static int areaLevel;
     
     private static Room currentRoom;
+    private static Room bossRoom;
     
     private static ArrayList<Unit> playerGroup = new ArrayList<>();
     
@@ -48,6 +49,9 @@ public class Data
             levelTwoAreas[i] = new Area(2);
             levelTwoAreas[i].generateArea();
         }
+        
+        bossRoom = new Room(new int[]{0, 0}, 3);
+        bossRoom.gen();
     }
     public static Area getArea(int level, int areaNum)
     {
@@ -62,6 +66,10 @@ public class Data
         
         //will eventually be final room
         return new Area(3);
+    }
+    public static void setBoss()
+    {
+        currentRoom = bossRoom;   
     }
     public static Area getCurrentArea()
     {
