@@ -37,11 +37,11 @@ public class SpriteHandeler
         loadSprites(enemiesFiles, enemies);
         
         Path bossPath = Paths.get("Sprites", "boss");
-        File bossFolder = enemiesPath.toFile();
+        File bossFolder = bossPath.toFile();
         File[] bossFiles = bossFolder.listFiles();
         
         loadSprites(bossFiles, bosses);
-        
+
         Path unitsPath = Paths.get("Sprites", "units");
         File unitsFolder = unitsPath.toFile();
         File[] unitsFiles = unitsFolder.listFiles();
@@ -68,7 +68,7 @@ public class SpriteHandeler
     }
     public static Surface getBoss(String name)
     {
-        return units.get(name);
+        return bosses.get(name);
     }
     public static Surface getUI(String name)
     {
