@@ -17,4 +17,8 @@ public class Knight extends Unit
         
         attacks = new Attack[]{new Bash(), new Slash(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "knight";
+    }
 }

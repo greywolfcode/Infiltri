@@ -15,10 +15,10 @@ public class Node
 
         if (val != null)
         {
-            type = val.class;
+            type = val.getClass();
         }
     }
-    public Class<T getType()
+    public Class<?> getType()
     {
         return type;
     }
@@ -91,27 +91,27 @@ public class Node
     }
     public Double getAsDouble()
     {
-        return Double(val);
+        return (Double)val;
     }
     public String getAsString()
     {
-        return String(val);
+        return (String)val;
     }
     public Boolean getAsBoolean()
     {
-        return Boolean(val);
+        return (Boolean)val;
     }
     public HashMap<String, Node> getAsObject()
     {
-        return HashMap<String, Node>(val);
+        return (HashMap<String, Node>)val;
     }
     public ArrayList<Node> getAsArray()
     {
-        return ArrayList<Node>(val);
+        return (ArrayList<Node>)val;
     }
-    public Jsonbuilder getAsBuilder()
+    public JsonBuilder getAsBuilder()
     {
-        return (JsonBuilder)value;
+        return (JsonBuilder)val;
     }
     
 }

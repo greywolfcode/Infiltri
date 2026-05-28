@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class JsonBuilder implements Iterable<Map.entry<String, Node>>
+public class JsonBuilder implements Iterable<Map.Entry<String, Node>>
 {
-    HashMap<String, Node> values;
-    
+    private HashMap<String, Node> values;
     
     public JsonBuilder()
     {
@@ -20,34 +19,34 @@ public class JsonBuilder implements Iterable<Map.entry<String, Node>>
     
     public void addNull(String key)
     {
-        values.add(key, null);
+        values.put(key, null);
     }
     public void addNumber(String key, Double num)
     {
-        values.add(key, new Node(num));
+        values.put(key, new Node(num));
     }
     public void addBoolean(String key, Boolean bool)
     {
-        values.add(key, new Node(bool));
+        values.put(key, new Node(bool));
     }
     public void addString(String key, String str)
     {
-        values.add(key, new Node(str));
+        values.put(key, new Node(str));
     }
     public JsonBuilder addObject(String key)
     {
         JsonBuilder obj = new JsonBuilder();
-        values.add(key, new Node(obj));
+        values.put(key, new Node(obj));
         return obj;
     }
     public JsonBuilder addObject(String key, JsonBuilder obj)
     {
-        values.add(key, new Node(obj));
+        values.put(key, new Node(obj));
         return obj;
     }
     
     @Override
-    public Iterator<Map.entry<String, Node>> iterator()
+    public Iterator<Map.Entry<String, Node>> iterator()
     {
         return values.entrySet().iterator();
     }

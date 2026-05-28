@@ -48,6 +48,10 @@ public abstract class Unit
         
         maxRegen();
     }
+    public int getLevel()
+    {
+        return level;
+    }
     public double getMaxHealth()
     {
         return maxHealth;

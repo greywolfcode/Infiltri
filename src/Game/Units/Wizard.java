@@ -17,4 +17,8 @@ public class Wizard extends Unit
         
         attacks = new Attack[]{new FireOrb(), new PoisinSpray(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "wizard";
+    }
 }

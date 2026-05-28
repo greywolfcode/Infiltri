@@ -1,4 +1,4 @@
-package SmallJson
+package SmallJson;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +19,7 @@ public class Parser
         data.replace("\n", "");
         data.replace("\t", "");
         
-        currentPos = 0;
+        pos = 0;
     }
     
     public Node parse()
@@ -55,13 +55,15 @@ public class Parser
                     return parsePrimative();
             }
         }
+        
+        return new Node(null);
     }
     private Node parseObject()
     {
         HashMap<String, Object> vals = new HashMap<>();
         StringBuilder token = new StringBuilder();
         
-        while (pos < data.length)
+        while (pos < data.length())
         {
             token.append(get());
             
@@ -77,26 +79,26 @@ public class Parser
             else if (peek() == "}")
             {
                 pos++;
-                return new Node(vals, HashMap.class);
+                return new Node(vals);
             }
         }
-        return new Node(vals, HashMap.class);
+        return new Node(vals);
     }
     private Node parseArray()
     {
         ArrayList<Object> vals = new ArrayList<>();
 
-        while (pos < data.length)
+        while (pos < data.length())
         {
             vals.add(runParser());
             
             if (peek() == "]")
             {
                 pos++;
-                return new Node(vals, ArrayList.class);
+                return new Node(vals);
             }
         }
-        return new Node(vals, ArrayList.class);
+        return new Node(vals);
     }
     private Node parseString()
     {
@@ -104,7 +106,7 @@ public class Parser
         
         if (peek() == "\"")
         {
-            return new Node("", String.class);
+            return new Node("");
         }
         
         while (pos < data.length())
@@ -114,43 +116,43 @@ public class Parser
             if (peek() == "\"")
             {
                 pos++;
-                return new Node(token.toString(), String.class);
+                return new Node(token.toString());
             }
         }
-        return new Node(token.toString(), String.class);
+        return new Node(token.toString());
     }
     private Node parsePrimative()
     {
-        StringBuilder token = new StringBuilder()
+        StringBuilder token = new StringBuilder();
         
         while (pos < data.length())
         {
             token.append(get());
             
-            switch (token)
+            switch (token.toString())
             {
                 case "null":
-                    return new Node(null, null);
+                    return new Node(null);
                 case "true":
-                    return new Node (new Boolean(true), Boolean.class);
+                    return new Node (Boolean.TRUE);
                 case "false":
-                    return new Node(new Boolean(false), Boolean.class);
+                    return new Node(Boolean.FALSE);
                 default:
-                    if (isNum(val.toString()))
+                    if (isNum(token.toString()))
                     {
                         //next value is not a number- this number ends
                         if (!isNum(peek()))
                         {
-                            return new Node(getNum(val.toString(), Double.class))
+                            return new Node(getNum(token.toString()));
                         }
                     }
             }
         }
-        return new Node(null, null);
+        return new Node(null);
     }
     private boolean isNum(String val)
     {
-        try()
+        try
         {
             Double.parseDouble(val);
             return true;

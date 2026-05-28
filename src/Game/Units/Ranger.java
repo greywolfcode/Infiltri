@@ -17,4 +17,8 @@ public class Ranger extends Unit
         
         attacks = new Attack[]{new Arrow(), new Slash(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "ranger";
+    }
 }
