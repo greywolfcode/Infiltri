@@ -10,7 +10,7 @@ import Game.Damage;
 
 public class Arrow extends Attack
 {
-    private double baseDamage = 1;
+    private double baseDamage = 2;
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {

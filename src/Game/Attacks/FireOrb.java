@@ -15,7 +15,7 @@ import Game.Effects.Fire;
  */ 
 public class FireOrb extends Attack
 {
-    double baseDamage = 1;
+    double baseDamage = 2;
     
     public Damage attack(HashSet<AttackMod> modifiers, int level)
     {
