@@ -13,22 +13,28 @@ public class Parser
     public Parser(String pData)
     {
         data = pData;
+        
+        //remove whitespace
+        data.replace(" ", "");
+        data.replace("\n", "");
+        data.replace("\t", "");
+        
         currentPos = 0;
     }
     
-    public ArrayList<Node> parse()
+    public Node parse()
     {
-        ArrayList<Node> output = new ArrayList<>();
-
-        while (pos < data.length())
-        {
-            output.add(runParser)
-        }
+        return runParser();
         
     }
     private String peek()
     {
         return data.substring(pos, pos+1);
+    }
+    private String get()
+    {
+        pos++;
+        return data.substring(pos-1, pos);
     }
     private Node runParser()
     {
@@ -37,32 +43,125 @@ public class Parser
         while (pos < data.length())
         {
             //check next token
-            switch (peek())
+            switch (get())
             {
                 case "{":
-                    parseObject();
-                    break;
+                    return parseObject();
+                case "[":
+                    return parseArray();
+                case "\"":
+                    return parseString();
+                default:
+                    return parsePrimative();
             }
         }
     }
-    private return Node parseObject()
+    private Node parseObject()
     {
-        HashMap<String, Object> vals;
+        HashMap<String, Object> vals = new HashMap<>();
         StringBuilder token = new StringBuilder();
         
         while (pos < data.length)
         {
-            token.append(data.substring(pos, pos + 1));
+            token.append(get());
             
             if (peek() == ":")
             {
                 pos++; //skip over ":""
                 
                 String key = token.toString();
-                Object
+                Object val = runParser();
                 
-                
+                vals.put(key, val);
+            }
+            else if (peek() == "}")
+            {
+                pos++;
+                return new Node(vals, HashMap.class);
             }
         }
+        return new Node(vals, HashMap.class);
+    }
+    private Node parseArray()
+    {
+        ArrayList<Object> vals = new ArrayList<>();
+
+        while (pos < data.length)
+        {
+            vals.add(runParser());
+            
+            if (peek() == "]")
+            {
+                pos++;
+                return new Node(vals, ArrayList.class);
+            }
+        }
+        return new Node(vals, ArrayList.class);
+    }
+    private Node parseString()
+    {
+        StringBuilder token = new StringBuilder();
+        
+        if (peek() == "\"")
+        {
+            return new Node("", String.class);
+        }
+        
+        while (pos < data.length())
+        {
+            token.append(data.substring(pos, pos+1));
+            
+            if (peek() == "\"")
+            {
+                pos++;
+                return new Node(token.toString(), String.class);
+            }
+        }
+        return new Node(token.toString(), String.class);
+    }
+    private Node parsePrimative()
+    {
+        StringBuilder token = new StringBuilder()
+        
+        while (pos < data.length())
+        {
+            token.append(get());
+            
+            switch (token)
+            {
+                case "null":
+                    return new Node(null, null);
+                case "true":
+                    return new Node (new Boolean(true), Boolean.class);
+                case "false":
+                    return new Node(new Boolean(false), Boolean.class);
+                default:
+                    if (isNum(val.toString()))
+                    {
+                        //next value is not a number- this number ends
+                        if (!isNum(peek()))
+                        {
+                            return new Node(getNum(val.toString(), Double.class))
+                        }
+                    }
+            }
+        }
+        return new Node(null, null);
+    }
+    private boolean isNum(String val)
+    {
+        try()
+        {
+            Double.parseDouble(val);
+            return true;
+        }
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
+    }
+    private double  getNum(String val)
+    {
+        return Double.parseDouble(val);
     }
 }

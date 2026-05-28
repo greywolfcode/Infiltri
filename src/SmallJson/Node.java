@@ -30,14 +30,14 @@ public class Node
         }
         return false;
     }
-    public boolean isInteger()
+    public boolean isDouble()
     {
         if (isNull())
         {
             return false;
         }
         
-        return type == Integer.class;
+        return type == Double.class;
     }
     public boolean isString()
     {
@@ -75,9 +75,9 @@ public class Node
         
         return type == ArrayList.class;
     }
-    public Integer getAsInteger()
+    public Double getAsDouble()
     {
-        return Integer(val);
+        return Double(val);
     }
     public String getAsString()
     {
