@@ -13,6 +13,7 @@ public class Amalgum extends Enemy
     {
         health = 100;
         level = lvl;
+        sprite = SpriteHandeler.getEnemy("amalgum");
         attacks = new Attack[]{new Bash(), new Slash(), Attack.getRandAttack()};
     }
 }
