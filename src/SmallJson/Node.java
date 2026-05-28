@@ -8,10 +8,15 @@ public class Node
     private Class<?> type;
     private Object val;
     
-    public Node(Class<T> pType, Object pVal)
+    public Node(Object pVal)
     {
-        type = pType;
         val = pVal;
+        type = null;
+
+        if (val != null)
+        {
+            type = val.class;
+        }
     }
     public Class<T getType()
     {
@@ -75,6 +80,15 @@ public class Node
         
         return type == ArrayList.class;
     }
+    public boolean isBuilder()
+    {
+        if (isNull())
+        {
+            return false;
+        }
+        
+        return type == JsonBuilder.class;
+    }
     public Double getAsDouble()
     {
         return Double(val);
@@ -94,6 +108,10 @@ public class Node
     public ArrayList<Node> getAsArray()
     {
         return ArrayList<Node>(val);
+    }
+    public Jsonbuilder getAsBuilder()
+    {
+        return (JsonBuilder)value;
     }
     
 }
