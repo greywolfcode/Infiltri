@@ -47,6 +47,14 @@ public class Room
     {
         return level;   
     }
+    public int[] getCoords()
+    {
+        return coords;
+    }
+    public RoomType getType()
+    {
+        return type;
+    }
     public void setCleared(boolean isCleared)
     {
         cleared = isCleared;

@@ -93,6 +93,10 @@ public class Area
             Data.pushEvent(new String[]{"switch", "RoomMenu"});
         }
     }
+    public ArrayList<Room> getRooms()
+    {
+        return rooms;
+    }
     
     public void render()
     {

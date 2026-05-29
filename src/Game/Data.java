@@ -67,6 +67,14 @@ public class Data
         //will eventually be final room
         return new Area(3);
     }
+    public static Area[] getLevelOneAreas()
+    {
+        return levelOneAreas;
+    }
+    public static Area[] getLevelTwoAreas()
+    {
+        return levelTwoAreas;
+    }
     public static void setBoss()
     {
         currentRoom = bossRoom;   
