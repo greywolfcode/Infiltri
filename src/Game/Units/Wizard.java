@@ -17,6 +17,14 @@ public class Wizard extends Unit
         
         attacks = new Attack[]{new FireOrb(), new PoisinSpray(), Attack.getRandAttack()};
     }
+    public Wizard(double pHealth, int pLevel, Attack[] pAttacks)
+    {
+        sprite = SpriteHandeler.getUnit("wizard");
+        health = pHealth;
+        level = pLevel;
+        
+        attacks = pAttacks;
+    }
     public String toString()
     {
         return "wizard";

@@ -17,6 +17,14 @@ public class Knight extends Unit
         
         attacks = new Attack[]{new Bash(), new Slash(), Attack.getRandAttack()};
     }
+    public Knight(double pHealth, int pLevel, Attack[] pAttacks)
+    {
+        sprite = SpriteHandeler.getUnit("knight");
+        health = pHealth;
+        level = pLevel;
+        
+        attacks = pAttacks;
+    }
     public String toString()
     {
         return "knight";

@@ -17,6 +17,14 @@ public class Ranger extends Unit
         
         attacks = new Attack[]{new Arrow(), new Slash(), Attack.getRandAttack()};
     }
+    public Ranger(double pHealth, int pLevel, Attack[] pAttacks)
+    {
+        sprite = SpriteHandeler.getUnit("ranger");
+        health = pHealth;
+        level = pLevel;
+        
+        attacks = pAttacks;
+    }
     public String toString()
     {
         return "ranger";

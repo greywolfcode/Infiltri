@@ -31,6 +31,22 @@ public abstract class Attack
         }
         return damage;
     }
+    public static Attack getAttack(String id)
+    {
+        switch (id)
+        {
+            case "Arrow":
+                return new Arrow();
+            case "Base":
+                return new Bash();
+            case "Fire Orb":
+                return new FireOrb();
+            case "Poisin Spray":
+                return new PoisinSpray();
+            default:
+                return new Slash();
+        }
+    }
     public static Attack getRandAttack()
     {
         double r = Math.random();

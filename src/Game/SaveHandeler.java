@@ -3,16 +3,23 @@ package Game;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import Game.Attack;
 import Game.Area;
 import Game.Data;
 import Game.Enemy;
 import Game.Room;
 
+import Game.Units.Knight;
+import Game.Units.Ranger;
+import Game.Units.Wizard;
+
 import GraphGen.Edge;
 import GraphGen.Graph;
 import GraphGen.Point;
 
+import SmallJson.Node;
 import SmallJson.SmallJson;
 import SmallJson.JsonBuilder;
 
@@ -28,7 +35,39 @@ public class SaveHandeler
         
         return file.exists() && file.isFile();
     }
-    
+    public static void load()
+    {
+        Node loadedData = SmallJson.read(path);
+        
+        //always starts as a Json Object
+        HashMap<String, Node> data = loadedData.getAsObject();
+        
+        HashMap<String, Node> playerData = data.get("player").getAsObject();
+        
+        Unit player;
+        double playerHealth = playerData.get("health").getAsDouble();
+        int playerLevel = playerData.get("level").getAsDouble().intValue();
+        Attack[] playerAttacks = new Attack[3];
+        
+        HashMap<String, Node> playerAttackData = playerData.get("attacks").getAsObject();
+        playerAttacks[0] = Attack.getAttack(playerAttackData.get("attack_0").getAsString());
+        playerAttacks[1] = Attack.getAttack(playerAttackData.get("attack_1").getAsString());
+        playerAttacks[2] = Attack.getAttack(playerAttackData.get("attack_2").getAsString());
+        
+        //load player
+        switch (playerData.get("type").getAsString())
+        {
+            case "knight":
+                player = new Knight(playerHealth, playerLevel, playerAttacks);
+                break;
+            case "ranger":
+                player = new Ranger(playerHealth, playerLevel, playerAttacks);
+                break;
+            case "wizard":
+                player = new Wizard(playerHealth, playerLevel, playerAttacks);
+                break;
+        }
+    }
     public static void save()
     {
         JsonBuilder builder = new JsonBuilder();  
@@ -176,7 +215,7 @@ public class SaveHandeler
     {
         for(int i = 0; i < attacks.length; i++)
         {
-            builder.addString("" + i, attacks[i].toString());
+            builder.addString("attack_" + i, attacks[i].toString());
         }
     }
 }
