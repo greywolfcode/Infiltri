@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import Game.Units.Knight;
 import Game.Units.Ranger;
@@ -235,10 +236,9 @@ public class SaveHandeler
             coords.addNumber("x", Double.valueOf(currentPoint.getX()));
             coords.addNumber("y", Double.valueOf(currentPoint.getY()));
             
-            JsonBuilder neighbors = points.addObject("neighbors");
+            JsonBuilder neighbors = point.addObject("neighbors");
             
             Point[] neighborArr = currentPoint.getNeighborsArr();
-            
             for (int j = 0; j < neighborArr.length; j++)
             {
                 JsonBuilder neighbor = neighbors.addObject("neighbor_" + j);
@@ -248,7 +248,6 @@ public class SaveHandeler
                 
                 nCoords.addNumber("x", Double.valueOf(currentNeighbor.getX()));
                 nCoords.addNumber("y", Double.valueOf(currentNeighbor.getY()));
-                
             }
         }
         
@@ -293,6 +292,8 @@ public class SaveHandeler
     }
     private static Area loadArea(HashMap<String, Node> area)
     {
+        int level = area.get("level").getAsDouble().intValue();
+        
         int startIndex = area.get("startPoint").getAsDouble().intValue();
         int endIndex = area.get("endPoint").getAsDouble().intValue();
         int currentPointIndex = area.get("currentPoint").getAsDouble().intValue();
@@ -300,7 +301,88 @@ public class SaveHandeler
         
         ArrayList<Room> rooms = loadRooms(area.get("rooms").getAsObject());
         
-        return null;
+        Graph graph = loadGraph(area.get("graph").getAsObject());
+        
+        return new Area(level, rooms, graph, startIndex, endIndex, currentPointIndex, selectedPointIndex);
+    }
+    private static Graph loadGraph(HashMap<String, Node> graph)
+    {
+        //load edges
+        HashMap<String, Node> edgesData = graph.get("edges").getAsObject();
+        HashSet<Edge> edges = new HashSet<>();
+        
+        for (Node value:edgesData.values())
+        {
+            edges.add(loadEdge(value.getAsObject()));
+        }
+        
+        //load points
+        HashMap<String, Node> pointsData = graph.get("points").getAsObject();
+        HashSet<Point> points = new HashSet<>();
+        
+        for (Node point:pointsData.values())
+        {
+            loadPoint(point.getAsObject(), points);
+        }
+        
+        return new Graph(points, edges);
+    }
+    private static void loadPoint(HashMap<String, Node> pointData, HashSet<Point> points)
+    {
+        //create actual point
+        int x = pointData.get("coords").getAsObject().get("x").getAsDouble().intValue();
+        int y = pointData.get("coords").getAsObject().get("y").getAsDouble().intValue();
+        
+        Point p = new Point(x, y);
+        
+        Point currentPoint = new Point(-1, -1);                 
+        if (points.add(p))                 
+        {                     
+            currentPoint = p;                 
+            
+        }                 
+        //value already exists in HashSet; find it.                 
+        else                 
+        {                     
+            for (Point point:points)                     
+            {                         
+                if (point.equals(p))                         
+                {                             
+                    currentPoint = point;                             
+                    break;                         
+                    
+                }                     
+            }                 
+        }
+        
+        //add neighbors to point
+        HashMap<String, Node> neighborsData = pointData.get("neighbors").getAsObject();
+        
+        for (Node neighbor:neighborsData.values())
+        {
+            HashMap<String, Node> coords = neighbor.getAsObject().get("coords").getAsObject();
+            
+            int nX = coords.get("x").getAsDouble().intValue();
+            int nY = coords.get("y").getAsDouble().intValue();
+            Point n = new Point(nX, nY);
+            
+            currentPoint.addNeighbor(n);
+        }
+        
+    }
+    private static Edge loadEdge(HashMap<String, Node> edge)
+    {
+        HashMap<String, Node> v0 = edge.get("v0").getAsObject();
+        
+        double v0X = v0.get("x").getAsDouble();
+        double v0Y = v0.get("y").getAsDouble();
+        
+        HashMap<String, Node> v1 = edge.get("v1").getAsObject();
+        
+        double v1X = v1.get("x").getAsDouble();
+        double v1Y = v1.get("y").getAsDouble();
+        
+        return new Edge(v0X, v0Y, v1X, v1Y);
     }
     private static ArrayList<Room> loadRooms(HashMap<String, Node> rooms)
     {
@@ -324,9 +406,12 @@ public class SaveHandeler
         
         RoomType type = RoomType.valueOf(room.get("type").getAsString());
         
+        Enemy enemy = loadEnemy(room.get("Enemy").getAsObject());
+        
+        return new Room(cleared, level, x, y, type, enemy);
         
     }
-    private Enemy loadEnemy(HashMap<String, Node> enemyData)
+    private static Enemy loadEnemy(HashMap<String, Node> enemyData)
     {
         String type = enemyData.get("type").getAsString();
         

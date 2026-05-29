@@ -32,6 +32,23 @@ public class Area
         level = areaLevel;
         rooms = new ArrayList<>();
     }
+    public Area(int areaLevel, ArrayList<Room> pRooms, Graph pGraph, int pStartIndex, int pEndIndex, int pCurrentPointIndex, int pSelectedPointIndex)
+    {
+        level = areaLevel;
+        rooms = pRooms;
+        graph = pGraph;
+        
+        startIndex = pStartIndex;
+        endIndex = pEndIndex;
+        currentPointIndex = pCurrentPointIndex;
+        selectedPointIndex = pSelectedPointIndex;
+        
+        startPoint = graph.getSortedPoints()[startIndex];
+        endPoint = graph.getSortedPoints()[endIndex];
+        currentPoint = graph.getSortedPoints()[currentPointIndex];
+        selectedPoint = currentPoint.getNeighborsArr()[selectedPointIndex];
+        
+    }
     public void generateArea()
     {
         graph = Graph.gen(10, 0, 64, 0, 32);

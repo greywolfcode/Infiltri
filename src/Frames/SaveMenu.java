@@ -33,6 +33,7 @@ public class SaveMenu extends Frame
                 }
                 else
                 {
+                    SaveHandeler.load();
                     Data.pushEvent(new String[]{"switch", "AreaMenu"});
                 }
                 break;

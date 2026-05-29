@@ -12,6 +12,11 @@ public class Graph
     private HashSet<Point> points;
     private HashSet<Edge> edges;
     
+    public Graph(HashSet<Point> pPoints, HashSet<Edge> pEdges)
+    {
+        points = pPoints;
+        edges = pEdges;
+    }
     public Graph(Triangle[] triangles)
     {
         points = new HashSet<Point>();

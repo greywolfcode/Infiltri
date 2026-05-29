@@ -36,7 +36,7 @@ public class EnemyGenerator
     
     private static HashMap<LevelOneEnemy, Double> levelOneWeights = new HashMap<>(
         Map.ofEntries(
-                Map.entry(levelOneEnemy.EYEBALL, 0.15)
+                Map.entry(LevelOneEnemy.EYEBALL, 0.15),
                 Map.entry(LevelOneEnemy.EVIL_CARROT, 0.25),
                 Map.entry(LevelOneEnemy.SMALL_SNAIL, 0.25),
                 Map.entry(LevelOneEnemy.SPIDER, 0.25),
@@ -123,6 +123,8 @@ public class EnemyGenerator
                 return new Spider(1);
             case LevelOneEnemy.TURTLE:
                 return new Turtle(1);
+            case LevelOneEnemy.EYEBALL:
+                return new Eyeball(1);
             default:
                 return new DummyEnemy(1);
         }

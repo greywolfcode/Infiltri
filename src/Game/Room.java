@@ -37,6 +37,14 @@ public class Room
             background = SpriteHandeler.getBackground("throne_room");
         }
     }
+    public Room(boolean pCleared, int lvl, int x, int y, RoomType pType, Enemy pEnemy)
+    {
+        cleared = pCleared;
+        level = lvl;
+        coords = new int[]{x, y};
+        type = pType;
+        enemy = pEnemy;
+    }
     public void gen()
     {
         type = RoomType.randType();

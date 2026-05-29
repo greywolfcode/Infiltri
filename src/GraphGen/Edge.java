@@ -10,6 +10,11 @@ public class Edge
         v0 = pV0;
         v1 = pV1;
     }
+    public Edge(double v0X, double v0Y, double v1X, double v1Y)
+    {
+        v0 = new Vertex(v0X, v0Y);
+        v1 = new Vertex(v1X, v1Y);
+    }
     
     //No need for setter, data should only be set on construction
     
