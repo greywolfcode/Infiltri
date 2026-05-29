@@ -1,7 +1,6 @@
 package Frames;
 
 import Game.Data;
-import Game.SaveHandeler;
 
 import Graphics.UI.RadioButton;
 
@@ -12,7 +11,6 @@ public class GameWonMenu extends Frame
     public GameWonMenu()
     {
         initButtons();
-        SaveHandeler.save();
     }
     public boolean eventHandeler(String event)
     {

@@ -5,6 +5,8 @@ import SmallJson.JsonBuilder;
 
 public class SaveHandeler 
 {
+    private static String path = "save.json";
+    
     private SaveHandeler(){}
     
     public static void save()
@@ -15,7 +17,7 @@ public class SaveHandeler
         JsonBuilder player = builder.addObject("player");
         
         Unit playerUnit = Data.getParty().get(0);
-        player.addString("sprite", player.toString());
+        player.addString("sprite", playerUnit.toString());
         player.addNumber("health", playerUnit.getMaxHealth());
         player.addNumber("level", Double.valueOf(playerUnit.getLevel()));
         
@@ -27,5 +29,6 @@ public class SaveHandeler
             playerAttacks.addString("" + i, playerAttacksArr[i].toString());
         }
         
+        SmallJson.write(builder, path);
     }
 }

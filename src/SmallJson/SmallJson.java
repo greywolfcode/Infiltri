@@ -16,11 +16,11 @@ public class SmallJson
     
     private SmallJson(){}
     
-    public Node read(String path)
+    public static Node read(String path)
     {
         return read(Path.of(path));
     }
-    public Node read(Path path)
+    public static Node read(Path path)
     {
         try
         {
@@ -33,54 +33,57 @@ public class SmallJson
             return new Node(null);
         }
     }
-    public void write(JsonBuilder builder, String path)
+    public static void write(JsonBuilder builder, String path)
     {
+        StringBuilder output = new StringBuilder();
+        
+        writeJson(builder, output, 1);
+        
+        output.append("\n}");
+        
         try (PrintWriter file = new PrintWriter(new FileWriter(path)))
         {
-            writeJson(builder, 0, file);
-            
-            //remove trailing comman from previous line
-            file.println("\b\b");
+            file.print(output);
         }
         catch (IOException e)
         {
             
         }
     }
-    private void writeJson(JsonBuilder builder, int indentAmount, PrintWriter file)
+    private static void writeJson(JsonBuilder builder, StringBuilder output, int indentAmount)
     {
         String indent = "    ".repeat(indentAmount); //4 space indentation
         
-        file.println("{");
+        output.append("{\n");
         
         for (Map.Entry<String, Node> entry:builder)
         {
-            file.print(indent + entry.getKey() + ": ");
+            output.append(indent + entry.getKey() + ": ");
             Node val = entry.getValue();
             
             if (val.isBuilder())
             {
-                writeJson(val.getAsBuilder(), indentAmount + 1, file);
+                writeJson(val.getAsBuilder(), output, indentAmount + 1);
+                output.append("\n" + indent + "},\n");
             }
             else if (val.isNull())
             {
-                file.println("null,");
+                output.append("null,\n");
             }
             else if (val.isString())
             {
-                file.println("\"" + val.getAsString() + "\",");
+                output.append("\"" + val.getAsString() + "\",\n");
             }
             else if (val.isBoolean())
             {
-                file.println(val.getAsBoolean() + ",");
+                output.append(val.getAsBoolean() + ",\n");
             }
             else if (val.isDouble())
             {
-                file.println(val.getAsDouble() + ",");
+                output.append(val.getAsDouble() + ",\n");
             }
         }
         //remove trailing comma, which is on previous line
-        file.println("\b\b");
-        file.println(indent + "},");
+        output.setLength(output.length() - 2);
     }
 }
