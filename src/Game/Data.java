@@ -23,6 +23,11 @@ public class Data
     
     private Data(){}
     
+    public static void reset()
+    {
+        playerGroup.clear();
+        genAreas();
+    }
     public static void addUnitToParty(Unit unit)
     {
         playerGroup.add(unit);

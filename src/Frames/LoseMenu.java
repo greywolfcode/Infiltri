@@ -1,6 +1,7 @@
 package Frames;
 
 import Game.Data;
+import Game.SaveHandeler;
 
 import Graphics.UI.RadioButton;
 
@@ -11,6 +12,8 @@ public class LoseMenu extends Frame
     public LoseMenu()
     {
         initButtons();
+        SaveHandeler.deleteSave();
+        Data.reset();
     }
     public boolean eventHandeler(String event)
     {

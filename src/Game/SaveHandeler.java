@@ -1,6 +1,11 @@
 package Game;
 
 import java.io.File;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -63,6 +68,18 @@ public class SaveHandeler
     
     private SaveHandeler(){}
     
+    public static boolean deleteSave()
+    {
+        try
+        {
+            Path savePath = Paths.get(path);
+            return Files.deleteIfExists(savePath);
+        }
+        catch (IOException e)
+        {
+            return false;
+        }
+    }
     public static boolean doesSaveExist()
     {
         File file = new File(path);
