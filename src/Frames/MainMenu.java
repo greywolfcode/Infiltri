@@ -45,9 +45,13 @@ public class MainMenu extends Frame
             case "quit":
                 return false;
             case "":
-                if (buttons.getSelectedButton() == 1)
+                if (buttons.getSelectedButton() == 2)
                 {
                     return false;
+                }
+                else if (buttons.getSelectedButton() == 1)
+                {
+                    Data.pushEvent(new String[]{"switch", "SaveMenu"});
                 }
                 else if (buttons.getSelectedButton() == 0)
                 {
@@ -92,7 +96,7 @@ public class MainMenu extends Frame
         title = new Surface(titleData);
         title.setCharColour(255, 255, 255);
         
-        options = new Surface(10, 4);
+        options = new Surface(12, 4);
         draw();
     }
     private void optionsReset()
@@ -102,6 +106,7 @@ public class MainMenu extends Frame
     private void initButtons()
     {
         buttons.addButton("\u25ba", "Play", 0, 0);
+        buttons.addButton("\u25ba", "Load Save", 0, 1);
         buttons.addButton("\u25ba", "Quit", 0, 2);
     }
 }

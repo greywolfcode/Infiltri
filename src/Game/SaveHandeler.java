@@ -1,5 +1,7 @@
 package Game;
 
+import java.io.File;
+
 import java.util.ArrayList;
 
 import Game.Area;
@@ -19,6 +21,13 @@ public class SaveHandeler
     private static String path = "save.json";
     
     private SaveHandeler(){}
+    
+    public static boolean doesSaveExist()
+    {
+        File file = new File(path);
+        
+        return file.exists() && file.isFile();
+    }
     
     public static void save()
     {
