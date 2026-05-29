@@ -15,6 +15,13 @@ public class Eyeball extends Enemy
         sprite = SpriteHandeler.getEnemy("eyeball");
         attacks = new Attack[]{new Slash(), Attack.getRandAttack(), Attack.getRandAttack()}
     }
+    public Eyeball(int lvl, Attack[] pAttacks)
+    {
+        health = 75;
+        level = lvl;
+        sprite = SpriteHandeler.getEnemy("eyeball");
+        attacks = pAttacks;
+    }
     public String toString()
     {
         return "eyeball";

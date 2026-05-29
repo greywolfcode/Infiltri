@@ -15,6 +15,13 @@ public class Turtle extends Enemy
         sprite = SpriteHandeler.getEnemy("turtle");
         attacks = new Attack[]{new Bash(), Attack.getRandAttack()};
     }
+    public Turtle(int lvl, Attack[] pAttacks)
+    {
+        health = 25.0;
+        level = lvl;
+        sprite = SpriteHandeler.getEnemy("turtle");
+        attacks = pAttacks;
+    }
     public String toString()
     {
         return "turtle";

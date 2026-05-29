@@ -7,6 +7,7 @@ import Game.Bosses.RoboBoss;
 
 import Game.Enemies.Amalgum;
 import Game.Enemies.DummyEnemy;
+import Game.Enemies.Eyeball;
 import Game.Enemies.EvilCarrot;
 import Game.Enemies.ScaryTriangle;
 import Game.Enemies.SmallSnail;
@@ -21,7 +22,8 @@ public class EnemyGenerator
         EVIL_CARROT,
         SMALL_SNAIL,
         SPIDER,
-        TURTLE
+        TURTLE,
+        EYEBALL
     }
     private enum LevelTwoEnemy
     {
@@ -34,10 +36,11 @@ public class EnemyGenerator
     
     private static HashMap<LevelOneEnemy, Double> levelOneWeights = new HashMap<>(
         Map.ofEntries(
+                Map.entry(levelOneEnemy.EYEBALL, 0.15)
                 Map.entry(LevelOneEnemy.EVIL_CARROT, 0.25),
                 Map.entry(LevelOneEnemy.SMALL_SNAIL, 0.25),
                 Map.entry(LevelOneEnemy.SPIDER, 0.25),
-                Map.entry(LevelOneEnemy.TURTLE, 0.25)
+                Map.entry(LevelOneEnemy.TURTLE, 0.1)
             )
         );
     
@@ -53,6 +56,30 @@ public class EnemyGenerator
     
     private EnemyGenerator(){}
     
+    public static Enemy getEnemy(String id, int level, Attack[] attacks)
+    {
+        switch (id)
+        {
+            case "amalgum":
+                return new Amalgum(level, attacks);
+            case "evil_carrot":
+                return new EvilCarrot(level, attacks);
+            case "eyeball":
+                return new Eyeball(level, attacks);
+            case "scary_triangle":
+                return new ScaryTriangle(level, attacks);
+            case "small_snail":
+                return new SmallSnail(level, attacks);
+            case "snail":
+                return new Snail(level, attacks);
+            case "spider":
+                return new Spider(level, attacks);
+            case "turtle":
+                return new Turtle(level, attacks);
+            default:
+                return new DummyEnemy(level, attacks);
+        }
+    }
     public static Enemy getEnemy(int level)
     {
         if (level == 1)

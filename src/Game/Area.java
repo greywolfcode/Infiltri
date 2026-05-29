@@ -102,6 +102,23 @@ public class Area
         return graph;
     }
     
+    public int getStartIndex()
+    {
+        return startIndex;
+    }
+    public int getEndIndex()
+    {
+        return endIndex;
+    }
+    public int getCurrentPointIndex()
+    {
+        return currentPointIndex;
+    }
+    public int getSelectedPointIndex()
+    {
+        return selectedPointIndex;
+    }
+    
     public void render()
     {
         //draw edges first so they are not on top of points

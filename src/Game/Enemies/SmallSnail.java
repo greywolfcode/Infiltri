@@ -13,6 +13,13 @@ public class SmallSnail extends Enemy
         sprite = SpriteHandeler.getEnemy("snail_small");
         attacks = new Attack[]{Attack.getRandAttack()};
     }
+    public SmallSnail(int lvl, Attack[] pAttacks)
+    {
+        health = 10;
+        level = lvl;
+        sprite = SpriteHandeler.getEnemy("snail_small");
+        attacks = pAttacks;
+    }
     public String toString()
     {
         return "small_snail";

@@ -26,6 +26,18 @@ public class Snail extends Enemy
         
         attacks = new Attack[]{Attack.getRandAttack(), Attack.getRandAttack()};
     }
+    public Snail(int lvl, Attack[] pAttacks)
+    {
+        health = 25.0;
+        level = lvl;
+        stage = 1;
+        
+        sprite1 = SpriteHandeler.getEnemy("snail_small");
+        sprite2 = SpriteHandeler.getEnemy("snail_large");
+        sprite = sprite1;
+        
+        attacks = pAttacks;
+    }
     
     //needs to handle two stages
     @Override
@@ -53,7 +65,7 @@ public class Snail extends Enemy
         if (health <= 0 && stage == 1)
         {
             stage ++;
-            health = 25.0;
+            health = 75.0;
             sprite = sprite2;
             
             //add two new attacks

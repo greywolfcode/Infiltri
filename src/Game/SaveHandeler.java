@@ -2,14 +2,10 @@ package Game;
 
 import java.io.File;
 
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
-
-import Game.Attack;
-import Game.Area;
-import Game.Data;
-import Game.Enemy;
-import Game.Room;
 
 import Game.Units.Knight;
 import Game.Units.Ranger;
@@ -27,6 +23,43 @@ public class SaveHandeler
 {
     private static String path = "save.json";
     
+    private static HashMap<String, Integer> areaIndexes = new HashMap<>(
+            Map.ofEntries(
+                Map.entry("area_0", 0),
+                Map.entry("area_1", 1),
+                Map.entry("area_2", 2),
+                Map.entry("area_3", 3),
+                Map.entry("area_4", 4),
+                Map.entry("area_5", 5),
+                Map.entry("area_6", 6),
+                Map.entry("area_7", 7)
+            )
+        );
+    
+    private static HashMap<String, Integer> roomIndexes = new HashMap<>(
+            Map.ofEntries(
+                Map.entry("room_0", 0),
+                Map.entry("room_1", 1),
+                Map.entry("room_2", 2),
+                Map.entry("room_3", 3),
+                Map.entry("room_4", 4),
+                Map.entry("room_5", 5),
+                Map.entry("room_6", 6),
+                Map.entry("room_7", 7),
+                Map.entry("room_8", 8),
+                Map.entry("room_9", 9)
+            )
+        );
+    private static HashMap<String, Integer> attackIndexes = new HashMap<>(
+            Map.ofEntries(
+                Map.entry("attack_0", 0),
+                Map.entry("attack_1", 1),
+                Map.entry("attack_2", 2),
+                Map.entry("attack_3", 3),
+                Map.entry("attack_4", 4)
+            )
+        );
+    
     private SaveHandeler(){}
     
     public static boolean doesSaveExist()
@@ -42,6 +75,13 @@ public class SaveHandeler
         //always starts as a Json Object
         HashMap<String, Node> data = loadedData.getAsObject();
         
+        //load progress data
+        HashMap<String, Node> progress = data.get("progress").getAsObject();
+        
+        Data.setCurrentAreaNum(progress.get("area").getAsDouble().intValue());
+        Data.setCurrentAreaLevel(progress.get("level").getAsDouble().intValue());
+        
+        //load player data
         HashMap<String, Node> playerData = data.get("player").getAsObject();
         
         Unit player;
@@ -67,12 +107,28 @@ public class SaveHandeler
                 player = new Wizard(playerHealth, playerLevel, playerAttacks);
                 break;
         }
+        
+        //load world
+        HashMap<String, Node> world = data.get("world").getAsObject();
+        
+        HashMap<String, Node> levelOneAreas = world.get("level_1").getAsObject();
+        Area[] levelOne = loadAreas(levelOneAreas);
+        
+        HashMap<String, Node> levelTwoAreas = world.get("level_2").getAsObject();
+        Area[] levelTwo = loadAreas(levelTwoAreas);
+        
     }
     public static void save()
     {
         JsonBuilder builder = new JsonBuilder();  
         
-        //Add player attacks
+        //Add progress data
+        JsonBuilder progress = builder.addObject("progress");
+        
+        progress.addNumber("area", Double.valueOf(Data.getCurrentAreaNum()));
+        progress.addNumber("level", Double.valueOf(Data.getCurrentAreaLevel()));
+        
+        //Add player data
         JsonBuilder player = builder.addObject("player");
         
         Unit playerUnit = Data.getParty().get(0);
@@ -122,6 +178,12 @@ public class SaveHandeler
     }
     private static void addArea(JsonBuilder area, Area currentArea)
     {
+        //add important indexes
+        area.addNumber("startPoint", Double.valueOf(currentArea.getStartIndex()));
+        area.addNumber("endPoint", Double.valueOf(currentArea.getEndIndex()));
+        area.addNumber("currentPoint", Double.valueOf(currentArea.getCurrentPointIndex()));
+        area.addNumber("selectedPoint", Double.valueOf(currentArea.getSelectedPointIndex()));
+        
         //add graph
         JsonBuilder graph = area.addObject("graph");
         addGraph(graph, currentArea.getGraph());
@@ -217,5 +279,68 @@ public class SaveHandeler
         {
             builder.addString("attack_" + i, attacks[i].toString());
         }
+    }
+    private static Area[] loadAreas(HashMap<String, Node> areas)
+    {
+        Area[] output = new Area[areas.size()];
+        
+        for (String key:areas.keySet())
+        {
+            output[areaIndexes.get(key)] = loadArea(areas.get(key).getAsObject());
+        }
+        
+        return output;
+    }
+    private static Area loadArea(HashMap<String, Node> area)
+    {
+        int startIndex = area.get("startPoint").getAsDouble().intValue();
+        int endIndex = area.get("endPoint").getAsDouble().intValue();
+        int currentPointIndex = area.get("currentPoint").getAsDouble().intValue();
+        int selectedPointIndex = area.get("selectedPoint").getAsDouble().intValue();
+        
+        ArrayList<Room> rooms = loadRooms(area.get("rooms").getAsObject());
+        
+        return null;
+    }
+    private static ArrayList<Room> loadRooms(HashMap<String, Node> rooms)
+    {
+        Room[] roomArr = new Room[rooms.size()];
+        
+        for (String key:rooms.keySet())
+        {
+            roomArr[roomIndexes.get(key)] = loadRoom(rooms.get(key).getAsObject());
+        }
+        
+        return new ArrayList<>(Arrays.asList(roomArr));
+    }
+    private static Room loadRoom(HashMap<String, Node> room)
+    {
+        int level = room.get("level").getAsDouble().intValue();
+        
+        int x = room.get("x").getAsDouble().intValue();
+        int y = room.get("y").getAsDouble().intValue();
+        
+        boolean cleared = room.get("cleared").getAsBoolean();
+        
+        RoomType type = RoomType.valueOf(room.get("type").getAsString());
+        
+        
+    }
+    private Enemy loadEnemy(HashMap<String, Node> enemyData)
+    {
+        String type = enemyData.get("type").getAsString();
+        
+        int level = enemyData.get("level").getAsDouble().intValue();
+        
+        HashMap<String, Node> attacksData = enemyData.get("attacks").getAsObject();
+        
+        Attack[] attacks = new Attack[attacksData.size()];
+        
+        for (String key:attacksData.keySet())
+        {
+            attacks[attackIndexes.get(key)] = Attack.getAttack(attacksData.get(key).getAsString());
+        }
+        
+        return EnemyGenerator.getEnemy(type, level, attacks);
     }
 }
