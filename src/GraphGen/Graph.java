@@ -64,6 +64,10 @@ public class Graph
     {
         return edges;
     }
+    public Edge[] getEdgesArr()
+    {
+        return edges.toArray(new Edge[0]);
+    }
     public static Graph gen(int numPoints, double minX, double maxX, double minY, double maxY)
     {
         Triangle superTri = genSuperTri(minX, maxX, minY, maxY);

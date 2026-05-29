@@ -97,6 +97,10 @@ public class Area
     {
         return rooms;
     }
+    public Graph getGraph()
+    {
+        return graph;
+    }
     
     public void render()
     {

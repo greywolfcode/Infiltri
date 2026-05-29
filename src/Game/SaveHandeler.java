@@ -7,6 +7,10 @@ import Game.Data;
 import Game.Enemy;
 import Game.Room;
 
+import GraphGen.Edge;
+import GraphGen.Graph;
+import GraphGen.Point;
+
 import SmallJson.SmallJson;
 import SmallJson.JsonBuilder;
 
@@ -70,35 +74,94 @@ public class SaveHandeler
     }
     private static void addArea(JsonBuilder area, Area currentArea)
     {
-            ArrayList<Room> rooms = currentArea.getRooms();
+        //add graph
+        JsonBuilder graph = area.addObject("graph");
+        addGraph(graph, currentArea.getGraph());
+        
+        //add rooms
+        ArrayList<Room> rooms = currentArea.getRooms();
+        
+        for (int i = 0; i  < rooms.size(); i++)
+        {
+            JsonBuilder room = area.addObject("room_" + i);
             
-            for (int i = 0; i  < rooms.size(); i++)
+            Room currentRoom = rooms.get(i);
+            
+            room.addBoolean("cleared", currentRoom.getCleared());
+            room.addNumber("level", Double.valueOf(currentRoom.getLevel()));
+            
+            int[] coords = currentRoom.getCoords();
+            room.addNumber("x", Double.valueOf(coords[0]));
+            room.addNumber("y", Double.valueOf(coords[1]));
+            
+            room.addString("type", currentRoom.getType().name());
+            
+            //write enemy data
+            JsonBuilder enemy = room.addObject("enemy");
+            
+            Enemy currentEnemy = currentRoom.getEnemy();
+            
+            enemy.addString("type", currentEnemy.toString());
+            enemy.addNumber("level", Double.valueOf(currentEnemy.getLevel()));
+            
+            JsonBuilder enemyAttacks = enemy.addObject("attacks");
+            
+            addAttacks(enemyAttacks, currentEnemy.getAttacks());
+        }
+    }
+    private static void addGraph(JsonBuilder builder, Graph graph)
+    {
+        JsonBuilder points = builder.addObject("points");
+        Point[] pointsArr = graph.getSortedPoints();
+        
+        for (int i = 0; i < pointsArr.length; i++)
+        {
+            JsonBuilder point = points.addObject("point_" + i);
+            
+            Point currentPoint = pointsArr[i];
+            
+            JsonBuilder coords = point.addObject("coords");
+            
+            coords.addNumber("x", Double.valueOf(currentPoint.getX()));
+            coords.addNumber("y", Double.valueOf(currentPoint.getY()));
+            
+            JsonBuilder neighbors = points.addObject("neighbors");
+            
+            Point[] neighborArr = currentPoint.getNeighborsArr();
+            
+            for (int j = 0; j < neighborArr.length; j++)
             {
-                JsonBuilder room = area.addObject("room_" + i);
+                JsonBuilder neighbor = neighbors.addObject("neighbor_" + j);
+                Point currentNeighbor = neighborArr[j];
                 
-                Room currentRoom = rooms.get(i);
+                JsonBuilder nCoords = neighbor.addObject("coords");
                 
-                room.addBoolean("cleared", currentRoom.getCleared());
-                room.addNumber("level", Double.valueOf(currentRoom.getLevel()));
+                nCoords.addNumber("x", Double.valueOf(currentNeighbor.getX()));
+                nCoords.addNumber("y", Double.valueOf(currentNeighbor.getY()));
                 
-                int[] coords = currentRoom.getCoords();
-                room.addNumber("x", Double.valueOf(coords[0]));
-                room.addNumber("y", Double.valueOf(coords[1]));
-                
-                room.addString("type", currentRoom.getType().name());
-                
-                //write enemy data
-                JsonBuilder enemy = room.addObject("enemy");
-                
-                Enemy currentEnemy = currentRoom.getEnemy();
-                
-                enemy.addString("type", currentEnemy.toString());
-                enemy.addNumber("level", Double.valueOf(currentEnemy.getLevel()));
-                
-                JsonBuilder enemyAttacks = enemy.addObject("attacks");
-                
-                addAttacks(enemyAttacks, currentEnemy.getAttacks());
             }
+        }
+        
+        JsonBuilder edges = builder.addObject("edges");
+        Edge[] edgesArr = graph.getEdgesArr();
+        
+        for (int i = 0; i < edgesArr.length; i++)
+        {
+            JsonBuilder edge = edges.addObject("edge_" + i);
+            Edge currentEdge = edgesArr[i];
+            
+            JsonBuilder v0 = edge.addObject("v0");
+            JsonBuilder v0Coords = v0.addObject("coords");
+            
+            v0Coords.addNumber("x", currentEdge.getV0().getX());
+            v0Coords.addNumber("y", currentEdge.getV1().getY());
+            
+            JsonBuilder v1 = edge.addObject("v1");
+            JsonBuilder v1Coords = v1.addObject("coords");
+            
+            v1Coords.addNumber("x", currentEdge.getV1().getX());
+            v1Coords.addNumber("y", currentEdge.getV1().getY());
+        }
     }
     private static void addAttacks(JsonBuilder builder, Attack[] attacks)
     {
