@@ -13,4 +13,8 @@ public class SmallSnail extends Enemy
         sprite = SpriteHandeler.getEnemy("snail_small");
         attacks = new Attack[]{Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "small_snail";
+    }
 }

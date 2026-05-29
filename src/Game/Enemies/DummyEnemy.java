@@ -25,4 +25,8 @@ public class DummyEnemy extends Enemy
         
         return new Surface(data);
     }
+    public String toString()
+    {
+        return "dummy_enemy";
+    }
 }

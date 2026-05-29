@@ -16,4 +16,8 @@ public class Spider extends Enemy
         sprite = SpriteHandeler.getEnemy("spider");
         attacks = new Attack[]{new PoisinSpray(), new Slash(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "spider";
+    }
 }

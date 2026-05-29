@@ -16,4 +16,8 @@ public class EvilCarrot extends Enemy
         sprite = SpriteHandeler.getEnemy("evil_carrot");
         attacks = new Attack[]{new Arrow(), new PoisinSpray(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "evil_carrot";
+    }
 }

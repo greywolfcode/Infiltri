@@ -15,4 +15,8 @@ public class Turtle extends Enemy
         sprite = SpriteHandeler.getEnemy("turtle");
         attacks = new Attack[]{new Bash(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "turtle";
+    }
 }

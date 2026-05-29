@@ -68,4 +68,8 @@ public class Snail extends Enemy
         }
         return false;
     }
+    public String toString()
+    {
+        return "snail";
+    }
 }

@@ -15,4 +15,8 @@ public class Eyeball extends Enemy
         sprite = SpriteHandeler.getEnemy("eyeball");
         attacks = new Attack[]{new Slash(), Attack.getRandAttack(), Attack.getRandAttack()}
     }
+    public String toString()
+    {
+        return "eyeball";
+    }
 }

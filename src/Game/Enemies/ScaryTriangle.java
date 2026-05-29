@@ -17,4 +17,8 @@ public class ScaryTriangle extends Enemy
         
         attacks = new Attack[]{new FireOrb(), new PoisinSpray(), Attack.getRandAttack()};
     }
+    public String toString()
+    {
+        return "scary_triangle";
+    }
 }
