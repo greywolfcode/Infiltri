@@ -15,6 +15,7 @@ import Frames.WonMenu;
 import Frames.WorldMenu;
 
 import Game.Data;
+import Game.NameGenerator;
 import Game.SpriteHandeler;
 
 import Graphics.Surface;
@@ -28,6 +29,7 @@ public class Main
     public static void main(String[] args) 
     {
         SpriteHandeler.init();
+        NameGenerator.init();
         
         Scanner in = new Scanner(System.in);
         

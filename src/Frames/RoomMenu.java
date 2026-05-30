@@ -152,6 +152,9 @@ public class RoomMenu extends Frame
         Data.getWindow().writeText(main.getHealthPercent(), 1, 35, 255, 255, 255);
         Data.getWindow().writeText(enemy.getHealthPercent(), 64-1-enemy.getHealthPercent().length(), 35, 255, 255, 255);
         
+        String enemyName = enemy.getName();
+        Data.getWindow().writeText(enemyName, 64 - 1 -enemyName.length(), 36, 255, 255, 255);
+        
         attackOptions.render(Data.getWindow(), 255, 255, 255);
     }
 }

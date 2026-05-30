@@ -22,6 +22,10 @@ public class Turtle extends Enemy
         sprite = SpriteHandeler.getEnemy("turtle");
         attacks = pAttacks;
     }
+    public String getName()
+    {
+        return name + " the Turtle";
+    }
     public String toString()
     {
         return "turtle";

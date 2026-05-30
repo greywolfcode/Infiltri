@@ -25,6 +25,10 @@ public class ScaryTriangle extends Enemy
         
         attacks = pAttacks;
     }
+    public String getName()
+    {
+        return name + " the Scary Triangle";
+    }
     public String toString()
     {
         return "scary_triangle";

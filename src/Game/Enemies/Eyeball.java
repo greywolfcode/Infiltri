@@ -22,6 +22,10 @@ public class Eyeball extends Enemy
         sprite = SpriteHandeler.getEnemy("eyeball");
         attacks = pAttacks;
     }
+    public String getName()
+    {
+        return name + " the Eyeball";
+    }
     public String toString()
     {
         return "eyeball";

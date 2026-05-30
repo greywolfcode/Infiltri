@@ -23,6 +23,10 @@ public class Amalgum extends Enemy
         sprite = SpriteHandeler.getEnemy("amalgum");
         attacks = pAttacks;
     }
+    public String getName()
+    {
+        return name + " the Amalgum";
+    }
     public String toString()
     {
         return "amalgum";

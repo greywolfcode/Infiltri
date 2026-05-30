@@ -23,6 +23,10 @@ public class Spider extends Enemy
         sprite = SpriteHandeler.getEnemy("spider");
         attacks = pAttacks;
     }
+    public String getName()
+    {
+        return name + " the Spider";
+    }
     public String toString()
     {
         return "spider";

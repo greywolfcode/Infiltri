@@ -14,6 +14,8 @@ public class Snail extends Enemy
     private Surface sprite1;
     private Surface sprite2;
     
+    private String nameType;
+    
     public Snail(int lvl)
     {
         health = 25.0;
@@ -25,6 +27,8 @@ public class Snail extends Enemy
         sprite = sprite1;
         
         attacks = new Attack[]{Attack.getRandAttack(), Attack.getRandAttack()};
+        
+        nameType = "Snail";
     }
     public Snail(int lvl, Attack[] pAttacks)
     {
@@ -76,9 +80,15 @@ public class Snail extends Enemy
             attacks[2] = Attack.getRandAttack();
             attacks[3] = Attack.getRandAttack();
             
+            nameType = "Super Snail";
+            
             return true;
         }
         return false;
+    }
+    public String getName()
+    {
+        return name + " the " + nameType;
     }
     public String toString()
     {

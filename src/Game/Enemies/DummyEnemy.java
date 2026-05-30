@@ -32,6 +32,10 @@ public class DummyEnemy extends Enemy
         
         return new Surface(data);
     }
+    public String getName()
+    {
+        return name + " (Target Practice)";
+    }
     public String toString()
     {
         return "dummy_enemy";

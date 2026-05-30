@@ -23,6 +23,10 @@ public class EvilCarrot extends Enemy
         sprite = SpriteHandeler.getEnemy("evil_carrot");
         attacks = pAttacks;
     }
+    public String getName()
+    {
+        return name + " the Evil Carrot";
+    }
     public String toString()
     {
         return "evil_carrot";

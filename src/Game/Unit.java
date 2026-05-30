@@ -15,10 +15,12 @@ public abstract class Unit
     protected Attack[] attacks;
     protected HashSet<AttackMod> mods = new HashSet<>();
     
+    protected String name;
     
     public void init()
     {
         maxHealth = health;
+        name = NameGenerator.genName();
     }
     public void regen()
     {
