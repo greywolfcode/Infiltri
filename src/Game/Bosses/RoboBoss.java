@@ -7,6 +7,8 @@ import Game.SpriteHandeler;
 
 public class RoboBoss extends Enemy
 {
+    private String title;
+    
     public RoboBoss()
     {
         health = 255.0;
@@ -14,10 +16,10 @@ public class RoboBoss extends Enemy
         sprite = SpriteHandeler.getBoss("robo_boss");
         attacks = Attack.getAllAttacks();
         
-        name = NameGenerator.genBossName();
+        title = NameGenerator.genBossName();
     }
     public String getName()
     {
-        return name;
+        return title;
     }
 }
