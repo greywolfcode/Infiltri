@@ -1,6 +1,6 @@
 # Infiltri
 
-Dungeon Crawler Roguelike. Infiltri is the esperanto form for 
+Dungeon Crawler Roguelike. Infiltri is the Esperanto word for "infiltrate"
 
 ![Main Manu Image](./images/menu.png)
 
